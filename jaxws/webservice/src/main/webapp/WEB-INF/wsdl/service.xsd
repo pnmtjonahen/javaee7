@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:tns="http://javaee7.jaxws.tjonahen.nl" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+           version="1.0" 
+           targetNamespace="http://javaee7.jaxws.tjonahen.nl">
+    <!-- 
+        Setup the root elements for request, response and fault 
+    -->
+    <xs:element name="wsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="param1" type="tns:param1Type"/>
+                <xs:element name="param2" type="tns:param2Type"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="wsResponse" type="xs:string"/>
+
+    <xs:element name="wsFault"> 
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="message" type="xs:string" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+ 
+    <!-- 
+    setup the simpleType with pattern validation
+    -->    
+    
+    <xs:simpleType name="param1Type">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    <xs:simpleType name="param2Type">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]{1}[a-z]{1,30}[- ]{1}[A-Z]{0,1}[a-z]{1,30}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    
+    
+
+</xs:schema>
