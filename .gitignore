@@ -1,3 +1,5 @@
 /jaxws/webservice/target/
 /jaxrs/restfullftl/nb-configuration.xml
 /jaxrs/restfullftlprovider/nb-configuration.xml
+/jaxrs/restfullftl/target/
+/jaxrs/restfullftlprovider/target/
