@@ -3,15 +3,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>nl.tjonahen</groupId>
     <artifactId>javaee7</artifactId>
-    <version>1.0</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JavaEE7</name>
   
     <scm>
-        <connection>scm:git:git@github.com:pnmtjonahen/raspberrypi.git</connection>
-        <url>scm:git:git@github.com:pnmtjonahen/raspberrypi.git</url>
-        <developerConnection>scm:git:git@github.com:pnmtjonahen/raspberrypi.git</developerConnection>
-        <tag>javaee7-1.0</tag>
+        <connection>scm:git:git@github.com:pnmtjonahen/javaee7.git</connection>
+        <url>scm:git:git@github.com:pnmtjonahen/javaee7.git</url>
+        <developerConnection>scm:git:git@github.com:pnmtjonahen/javaee7.git</developerConnection>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <repository>
