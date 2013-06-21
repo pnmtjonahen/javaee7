@@ -14,11 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.jaxws.javaee7.wsdl;
+package nl.tjonahen.javaee7.jaxws.wsdl;
 
-import nl.tjonahen.jaxws.javaee7.wsdl.WSPortImpl;
-import nl.tjonahen.jaxws.javaee7.ObjectFactory;
-import nl.tjonahen.jaxws.javaee7.WsRequest;
+import nl.tjonahen.javaee7.jaxws.wsdl.WSPortImpl;
+import nl.tjonahen.javaee7.jaxws.ObjectFactory;
+import nl.tjonahen.javaee7.jaxws.WsRequest;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <javaee:handler-chain>
                 <javaee:handler>
                     <javaee:handler-name>XSDValidationHandler</javaee:handler-name>         
-                    <javaee:handler-class>nl.tjonahen.jaxws.javaee7.handler.XSDValidationHandler</javaee:handler-class>           
+                    <javaee:handler-class>nl.tjonahen.javaee7.jaxws.handler.XSDValidationHandler</javaee:handler-class>           
                 </javaee:handler>                     
             </javaee:handler-chain>
         </javaee:handler-chains>

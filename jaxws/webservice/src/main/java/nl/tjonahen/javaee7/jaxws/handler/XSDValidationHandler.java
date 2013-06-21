@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.jaxws.javaee7.handler;
+package nl.tjonahen.javaee7.jaxws.handler;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -78,7 +78,7 @@ public class XSDValidationHandler implements LogicalHandler<LogicalMessageContex
         } catch (TransformerConfigurationException e) {
             // When Source payload Transformer object could not be obtained.  
             throw new WebServiceException(e);
-        } catch (TransformerFactoryConfigurationError e) {
+        } catch (TransformerFactoryConfigurationError | ParserConfigurationException | SAXException e) {
             // When Source payload Transformer object could not be obtained.  
             throw new WebServiceException(e);
         } catch (TransformerException e) {
@@ -87,14 +87,8 @@ public class XSDValidationHandler implements LogicalHandler<LogicalMessageContex
         } catch (MalformedURLException e) {
             // When URL to schema is invalid.  
             throw new WebServiceException(e);
-        } catch (ParserConfigurationException e) {
-            // When parser needed for validation could not be obtained.  
-            throw new WebServiceException(e);
         } catch (IOException e) {
             // When something is wrong with IO.  
-            throw new WebServiceException(e);
-        } catch (SAXException e) {
-            // When XSD-schema validation fails.  
             throw new WebServiceException(e);
         }
 

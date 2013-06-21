@@ -14,15 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.javaee7;
+package nl.tjonahen.javaee7.jaxws.wsdl;
 
-import javax.ws.rs.core.Application;
+import javax.jws.WebService;
+import nl.tjonahen.javaee7.jaxws.WsRequest;
+
+
+import nl.tjonahen.javaee7.jaxws.wsdl.WSPort;
+import nl.tjonahen.javaee7.jaxws.wsdl.WsFault;
 
 /**
  *
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
-@javax.ws.rs.ApplicationPath("/content")
-public class ApplicationConfig extends Application {
+@WebService(targetNamespace = "http://wsdl.jaxws.javaee7.tjonahen.nl",
+        wsdlLocation = "WEB-INF/wsdl/service.wsdl",
+        endpointInterface = "nl.tjonahen.javaee7.jaxws.wsdl.WSPort",
+        portName = "WSPort",
+        serviceName = "WSService")
+public class WSPortImpl implements WSPort {
+
+    @Override
+    public String triggerFilter(WsRequest parameters) throws WsFault {
+        return parameters.getParam1() + " " + parameters.getParam2();
+    }
     
 }

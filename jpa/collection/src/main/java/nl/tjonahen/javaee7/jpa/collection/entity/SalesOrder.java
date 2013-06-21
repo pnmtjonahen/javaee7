@@ -14,70 +14,49 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.javaee7.jpacollection.entity;
+package nl.tjonahen.javaee7.jpa.collection.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
- * A single sales order line.
+ * The Sales Order.
+ * 
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
 @Entity
-public class SalesOrderLine implements Serializable {
+@NamedQueries({
+    @NamedQuery(name = "SalesOrder.findAll", query = "SELECT b FROM SalesOrder b")
+})
+public class SalesOrder implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    
-    @ManyToOne
-    private SalesOrder salesOrder;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Product product;
+    @Embedded
+    private SalesOrderLineCollection salesOrderLineCollection;
     
-    @Basic
-    private BigDecimal price;
-
-    public SalesOrderLine() {
-        
+    public SalesOrder() {
+        salesOrderLineCollection = new SalesOrderLineCollection();
     }
     
-    SalesOrderLine(final Product product, final BigDecimal price) {
-        this.product = product;
-        this.price = price;
-    }
-            
     public Long getId() {
         return id;
     }
 
-
-    public SalesOrder getSalesOrder() {
-        return salesOrder;
+    public SalesOrderLineCollection getSalesOrderLineCollection() {
+        return salesOrderLineCollection;
     }
 
-    public void setSalesOrder(final SalesOrder salesOrder) {
-        this.salesOrder = salesOrder;
-    }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -88,10 +67,10 @@ public class SalesOrderLine implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SalesOrderLine)) {
+        if (!(object instanceof SalesOrder)) {
             return false;
         }
-        SalesOrderLine other = (SalesOrderLine) object;
+        SalesOrder other = (SalesOrder) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,11 +79,26 @@ public class SalesOrderLine implements Serializable {
 
     @Override
     public String toString() {
-        return "nl.tjonahen.javaee7.jpacollection.entity.SalesOrderLine[ id=" + id + " ]";
+        return "nl.tjonahen.javaee7.jpacollection.entity.SalesOrder[ id=" + id + " ]";
+    }
+    
+    
+    /**
+     * 
+     * @param productNaam -
+     * @return -
+     */
+    public boolean contains(final String productNaam) {
+        return salesOrderLineCollection.contains(productNaam);
     }
 
-    boolean containsProduct(final String productName) {
-        return product.isProduct(productName);
+    /**
+     * 
+     * @param product -
+     * @param price -
+     */
+    public void add(final Product product, final BigDecimal price) {
+        salesOrderLineCollection.add(product, price);
     }
     
 }

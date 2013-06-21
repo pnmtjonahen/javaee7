@@ -14,54 +14,69 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.javaee7.jpacollection.entity;
+package nl.tjonahen.javaee7.jpa.collection.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
- * Represents a product that can be sold.
- * 
+ * A single sales order line.
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
 @Entity
-public class Product implements Serializable {
+public class SalesOrderLine implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    
+    @ManyToOne
+    private SalesOrder salesOrder;
 
-    @Basic
-    private String name;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Product product;
     
     @Basic
-    private String description;
+    private BigDecimal price;
+
+    public SalesOrderLine() {
+        
+    }
     
-    
+    SalesOrderLine(final Product product, final BigDecimal price) {
+        this.product = product;
+        this.price = price;
+    }
+            
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+
+    public SalesOrder getSalesOrder() {
+        return salesOrder;
     }
 
-    public void setName(final String name) {
-        this.name = name;
+    public void setSalesOrder(final SalesOrder salesOrder) {
+        this.salesOrder = salesOrder;
     }
 
-    public String getDescription() {
-        return description;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setDescription(final String description) {
-        this.description = description;
+    public BigDecimal getPrice() {
+        return price;
     }
-    
     
     @Override
     public int hashCode() {
@@ -73,10 +88,10 @@ public class Product implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Product)) {
+        if (!(object instanceof SalesOrderLine)) {
             return false;
         }
-        Product other = (Product) object;
+        SalesOrderLine other = (SalesOrderLine) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -85,11 +100,11 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "nl.tjonahen.javaee7.jpacollection.entity.Product[ id=" + id + " ]";
+        return "nl.tjonahen.javaee7.jpacollection.entity.SalesOrderLine[ id=" + id + " ]";
     }
 
-    boolean isProduct(final String productName) {
-        return name.equals(productName);
+    boolean containsProduct(final String productName) {
+        return product.isProduct(productName);
     }
     
 }

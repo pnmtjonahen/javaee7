@@ -14,13 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.javaee7.restfullftl;
+package nl.tjonahen.javaee7.jaxws.restfullftlprovider;
 
-import com.sun.jersey.api.view.Viewable;
+
 import javax.ws.rs.Path;
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import nl.tjonahen.javaee7.jaxws.FreemarkerModel;
 
 /**
  * REST Web Service
@@ -31,13 +32,14 @@ import javax.ws.rs.core.MediaType;
 public class HomeResource {
 
     /**
-     * Retrieves representation of an instance of nl.ordina.jtechnologies.restfullftl.HomeResource
-     * @return an instance of java.lang.String
+     * Retrieves representation of an instance of nl.ordina.jtechnologies.restfullftlprovider.HomeResource
+     * @return an FreemarkerModel
      */
     @GET
-    @Produces({MediaType.TEXT_HTML,MediaType.APPLICATION_XHTML_XML})
-    public Viewable get() {
-        return new Viewable("/hello", "Me");
+    @Produces(MediaType.APPLICATION_XHTML_XML)
+    public FreemarkerModel get() {
+        final FreemarkerModel model = new FreemarkerModel("/hello");
+        model.addObject("me", "Mij-OOk");
+        return model;
     }
-
 }

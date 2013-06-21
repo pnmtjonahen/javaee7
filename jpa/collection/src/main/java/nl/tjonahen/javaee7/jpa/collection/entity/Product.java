@@ -14,49 +14,55 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.javaee7.jpacollection.entity;
+package nl.tjonahen.javaee7.jpa.collection.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import javax.persistence.Embedded;
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 
 /**
- * The Sales Order.
+ * Represents a product that can be sold.
  * 
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
 @Entity
-@NamedQueries({
-    @NamedQuery(name = "SalesOrder.findAll", query = "SELECT b FROM SalesOrder b")
-})
-public class SalesOrder implements Serializable {
+public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Embedded
-    private SalesOrderLineCollection salesOrderLineCollection;
+    @Basic
+    private String name;
     
-    public SalesOrder() {
-        salesOrderLineCollection = new SalesOrderLineCollection();
-    }
+    @Basic
+    private String description;
+    
     
     public Long getId() {
         return id;
     }
 
-    public SalesOrderLineCollection getSalesOrderLineCollection() {
-        return salesOrderLineCollection;
+    public String getName() {
+        return name;
     }
 
+    public void setName(final String name) {
+        this.name = name;
+    }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -67,10 +73,10 @@ public class SalesOrder implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof SalesOrder)) {
+        if (!(object instanceof Product)) {
             return false;
         }
-        SalesOrder other = (SalesOrder) object;
+        Product other = (Product) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -79,26 +85,11 @@ public class SalesOrder implements Serializable {
 
     @Override
     public String toString() {
-        return "nl.tjonahen.javaee7.jpacollection.entity.SalesOrder[ id=" + id + " ]";
-    }
-    
-    
-    /**
-     * 
-     * @param productNaam -
-     * @return -
-     */
-    public boolean contains(final String productNaam) {
-        return salesOrderLineCollection.contains(productNaam);
+        return "nl.tjonahen.javaee7.jpacollection.entity.Product[ id=" + id + " ]";
     }
 
-    /**
-     * 
-     * @param product -
-     * @param price -
-     */
-    public void add(final Product product, final BigDecimal price) {
-        salesOrderLineCollection.add(product, price);
+    boolean isProduct(final String productName) {
+        return name.equals(productName);
     }
     
 }

@@ -14,15 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.jaxws.javaee7.wsdl;
+package nl.tjonahen.javaee7.jaxws.wsdl;
 
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
-import nl.tjonahen.jaxws.javaee7.ObjectFactory;
-import nl.tjonahen.jaxws.javaee7.WsRequest;
+import nl.tjonahen.javaee7.jaxws.ObjectFactory;
+import nl.tjonahen.javaee7.jaxws.WsRequest;
+import nl.tjonahen.javaee7.jaxws.wsdl.WSService;
+import nl.tjonahen.javaee7.jaxws.wsdl.WsFault;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -40,7 +42,7 @@ public class WSPortImplIT {
 
     @BeforeClass
     public static void setUp() throws Exception {
-        serviceName = new QName("http://wsdl.javaee7.jaxws.tjonahen.nl", "WSService");
+        serviceName = new QName("http://wsdl.jaxws.javaee7.tjonahen.nl", "WSService");
         address = "http://localhost:8088/javaee7/WSService";
         wsdlURL = new URL(address + "?wsdl");
     }

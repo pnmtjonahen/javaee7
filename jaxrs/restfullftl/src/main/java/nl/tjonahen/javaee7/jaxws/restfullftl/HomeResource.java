@@ -14,37 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.javaee7;
+package nl.tjonahen.javaee7.jaxws.restfullftl;
 
-import java.util.Map;
-import java.util.TreeMap;
+import com.sun.jersey.api.view.Viewable;
+import javax.ws.rs.Path;
+import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
+ * REST Web Service
  *
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
-public class FreemarkerModel {
+@Path("/")
+public class HomeResource {
 
-    private final Map<String, Object> model;
-    private final String view;
-
-    public FreemarkerModel(final String view) {
-        this.model = new TreeMap<String, Object>();
-        this.view = view;
+    /**
+     * Retrieves representation of an instance of nl.ordina.jtechnologies.restfullftl.HomeResource
+     * @return an instance of java.lang.String
+     */
+    @GET
+    @Produces({MediaType.TEXT_HTML,MediaType.APPLICATION_XHTML_XML})
+    public Viewable get() {
+        return new Viewable("/hello", "Me");
     }
 
-    
-    public Map<String, Object> getModel() {
-        return model;
-    }
-
-    public String getView() {
-        return view;
-    }
-    
-    public Object addObject(final String name, Object value) {
-        return model.put(name, value);
-    }
-
-    
 }

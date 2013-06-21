@@ -1,14 +1,14 @@
 <?xm version='1.0' encoding='UTF-8'?>
 <definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-             xmlns:tns="http://wsdl.javaee7.jaxws.tjonahen.nl" 
-             xmlns:ns1="http://javaee7.jaxws.tjonahen.nl" 
+             xmlns:tns="http://wsdl.jaxws.javaee7.tjonahen.nl" 
+             xmlns:ns1="http://jaxws.javaee7.tjonahen.nl" 
              xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
              xmlns="http://schemas.xmlsoap.org/wsdl/" 
-             targetNamespace="http://wsdl.javaee7.jaxws.tjonahen.nl" 
+             targetNamespace="http://wsdl.jaxws.javaee7.tjonahen.nl" 
              name="WS">
     <types>
         <xsd:schema>
-            <xsd:import namespace="http://javaee7.jaxws.tjonahen.nl" schemaLocation="service.xsd"/>
+            <xsd:import namespace="http://jaxws.javaee7.tjonahen.nl" schemaLocation="service.xsd"/>
         </xsd:schema>
     </types>
     

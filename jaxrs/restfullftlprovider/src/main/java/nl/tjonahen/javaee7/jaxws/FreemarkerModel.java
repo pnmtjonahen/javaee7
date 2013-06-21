@@ -14,29 +14,37 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.jaxws.javaee7.wsdl;
+package nl.tjonahen.javaee7.jaxws;
 
-import javax.jws.WebService;
-import nl.tjonahen.jaxws.javaee7.wsdl.WsFault;
-import nl.tjonahen.jaxws.javaee7.WsRequest;
-
-
-import nl.tjonahen.jaxws.javaee7.wsdl.WSPort;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  *
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
-@WebService(targetNamespace = "http://wsdl.javaee7.jaxws.tjonahen.nl",
-        wsdlLocation = "WEB-INF/wsdl/service.wsdl",
-        endpointInterface = "nl.tjonahen.jaxws.javaee7.wsdl.WSPort",
-        portName = "WSPort",
-        serviceName = "WSService")
-public class WSPortImpl implements WSPort {
+public class FreemarkerModel {
 
-    @Override
-    public String triggerFilter(WsRequest parameters) throws WsFault {
-        return parameters.getParam1() + " " + parameters.getParam2();
+    private final Map<String, Object> model;
+    private final String view;
+
+    public FreemarkerModel(final String view) {
+        this.model = new TreeMap<String, Object>();
+        this.view = view;
     }
+
+    
+    public Map<String, Object> getModel() {
+        return model;
+    }
+
+    public String getView() {
+        return view;
+    }
+    
+    public Object addObject(final String name, Object value) {
+        return model.put(name, value);
+    }
+
     
 }

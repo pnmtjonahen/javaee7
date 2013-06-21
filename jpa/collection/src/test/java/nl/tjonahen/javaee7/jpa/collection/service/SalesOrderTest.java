@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.javaee7.jpacollection.service;
+package nl.tjonahen.javaee7.jpa.collection.service;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,8 +22,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import nl.tjonahen.javaee7.jpacollection.entity.SalesOrder;
-import nl.tjonahen.javaee7.jpacollection.entity.Product;
+import nl.tjonahen.javaee7.jpa.collection.entity.SalesOrder;
+import nl.tjonahen.javaee7.jpa.collection.entity.Product;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;

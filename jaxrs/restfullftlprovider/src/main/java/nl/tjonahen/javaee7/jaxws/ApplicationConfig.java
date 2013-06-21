@@ -14,32 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package nl.tjonahen.javaee7.restfullftlprovider;
+package nl.tjonahen.javaee7.jaxws;
 
-
-import javax.ws.rs.Path;
-import javax.ws.rs.GET;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import nl.tjonahen.javaee7.FreemarkerModel;
+import javax.ws.rs.core.Application;
 
 /**
- * REST Web Service
  *
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
-@Path("/")
-public class HomeResource {
-
-    /**
-     * Retrieves representation of an instance of nl.ordina.jtechnologies.restfullftlprovider.HomeResource
-     * @return an FreemarkerModel
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_XHTML_XML)
-    public FreemarkerModel get() {
-        final FreemarkerModel model = new FreemarkerModel("/hello");
-        model.addObject("me", "Mij-OOk");
-        return model;
-    }
+@javax.ws.rs.ApplicationPath("/content")
+public class ApplicationConfig extends Application {
+    
 }
