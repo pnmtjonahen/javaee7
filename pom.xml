@@ -32,5 +32,6 @@
         <module>jaxrs</module>
         <module>jaxws</module>
         <module>jpa</module>
-    </modules>
+    <module>web</module>
+  </modules>
 </project>

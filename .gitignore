@@ -7,3 +7,4 @@
 /jpa/collection/target/
 /target/
 /jpa/collection/derby.log
+/web/websocket/target/

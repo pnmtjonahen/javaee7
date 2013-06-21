@@ -1,0 +1,112 @@
+<!--
+Copyright (C) 2013 Philippe Tjon-A-Hen philippe@tjonahen.nl
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Delayed WebSocket Client</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>  
+
+        <link rel="stylesheet" type="text/css" href="http://localhost:8080/websocket/websocket.css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                if (!("WebSocket" in window)) {
+                    $('#chatLog, input, button, #examples').fadeOut("fast");
+                    $('<p>Oh no, you need a browser that supports WebSockets. How about <a href="http://www.google.com/chrome">Google Chrome</a>?</p>').appendTo('#container');
+                } else {
+                    //The user has WebSockets
+
+
+                    function connect() {
+                        var socket;
+                        var host = "ws://localhost:8080/websocket/delayed";
+
+                        try {
+                            var socket = new WebSocket(host);
+
+                            message('<p class="event">Socket Status: ' + socket.readyState);
+
+                            socket.onopen = function() {
+                                message('<p class="event">Socket Status: ' + socket.readyState + ' (open)');
+                            }
+
+                            socket.onmessage = function(msg) {
+                                message('<p class="message">Received: ' + msg.data);
+                            }
+
+                            socket.onclose = function() {
+                                message('<p class="event">Socket Status: ' + socket.readyState + ' (Closed)');
+                            }
+
+                        } catch (exception) {
+                            message('<p>Error' + exception);
+                        }
+
+                        function send() {
+                            var text = $('#text').val();
+
+                            if (text == "") {
+                                message('<p class="warning">Please enter a message');
+                                return;
+                            }
+                            try {
+                                socket.send(text);
+                                message('<p class="event">Sent: ' + text)
+
+                            } catch (exception) {
+                                message('<p class="warning">');
+                            }
+                            $('#text').val("");
+                        }
+
+                        function message(msg) {
+                            $('#chatLog').append(msg + '</p>');
+                        }
+
+                        $('#text').keypress(function(event) {
+                            if (event.keyCode == '13') {
+                                send();
+                            }
+                        });
+
+                        $('#disconnect').click(function() {
+                            socket.close();
+                        });
+
+                    }//End connect
+                    connect();
+
+                }//End else
+
+            });
+
+        </script>        
+        <div id="wrapper">  
+            <div id="container">  
+                <h1>Delayed WebSockets Client</h1>  
+
+                <div id="chatLog">  
+                </div>  
+                <input id="text" type="text" />  
+                <button id="disconnect">Disconnect</button>  
+            </div>  
+        </div>
+    </body>
+</html>
