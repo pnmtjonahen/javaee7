@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>nl.tjonahen</groupId>
-  <artifactId>javaee7</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <name>JavaEE7</name>
-  <modules>
-    <module>jaxrs</module>
-    <module>jaxws</module>
-    <module>jpa</module>
-  </modules>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>nl.tjonahen</groupId>
+    <artifactId>javaee7</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>JavaEE7</name>
+  
+    <scm>
+        <connection>scm:git:git@github.com:pnmtjonahen/raspberrypi.git</connection>
+        <url>scm:git:git@github.com:pnmtjonahen/raspberrypi.git</url>
+        <developerConnection>scm:git:git@github.com:pnmtjonahen/raspberrypi.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+    <distributionManagement>
+        <repository>
+            <id>maven-repository</id>
+            <url>file:////tmp/</url>
+        </repository>
+    </distributionManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.4.1</version>
+            </plugin>
+        </plugins>
+    </build>          
+    <modules>
+        <module>jaxrs</module>
+        <module>jaxws</module>
+        <module>jpa</module>
+    </modules>
 </project>
