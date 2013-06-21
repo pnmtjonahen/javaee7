@@ -3,3 +3,5 @@
 /jaxrs/restfullftlprovider/nb-configuration.xml
 /jaxrs/restfullftl/target/
 /jaxrs/restfullftlprovider/target/
+/jpa/jpacollection/target/
+/jpa/collection/target/

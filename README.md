@@ -9,3 +9,6 @@ My JavaEE7 samples, proof of concepts and other things I can think of :)
 * jax-ws contains the jax-ws webservices demo/test applications
     * webservice implements some features I found and collected on the internet. Currently it implements 
 xsd validation using a Handler and implements both JUnit tests and Integration testing
+
+* jpa contains the jpa demo/test applications
+    * collection uses an @Embeddable as the collection in a OneToMany relation.

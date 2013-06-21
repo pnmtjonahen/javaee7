@@ -9,5 +9,6 @@
   <modules>
     <module>jaxrs</module>
     <module>jaxws</module>
+    <module>jpa</module>
   </modules>
 </project>

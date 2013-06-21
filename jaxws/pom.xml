@@ -8,7 +8,6 @@
   </parent>
   <groupId>nl.tjonahen.javaee7</groupId>
   <artifactId>jaxws</artifactId>
-  <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>JavaEE7 JAX-WS</name>
     <modules>

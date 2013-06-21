@@ -7,11 +7,10 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   <groupId>nl.tjonahen.javaee7</groupId>
-  <artifactId>jaxrs</artifactId>
+  <artifactId>jpa</artifactId>
   <packaging>pom</packaging>
-  <name>JavaEE7 JAX-RS</name>
+  <name>JavaEE7 JPA</name>
     <modules>
-        <module>restfullftl</module>
-        <module>restfullftlprovider</module>
+        <module>collection</module>
     </modules>
 </project>
