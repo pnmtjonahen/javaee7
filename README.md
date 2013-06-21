@@ -12,3 +12,6 @@ xsd validation using a Handler and implements both JUnit tests and Integration t
 
 * jpa contains the jpa demo/test applications
     * collection uses an @Embeddable as the collection in a OneToMany relation.
+
+* web contains the web demo/test applications
+    * websocket shows haw a websocket java/javascript works. Uses a chat like mechanism and a delayed echo
