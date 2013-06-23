@@ -17,11 +17,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Chat WebSocket Client</title>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>  
-
-        <link rel="stylesheet" type="text/css" href="http://localhost:8080/websocket/websocket.css"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>WebSocket Client - Chat</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>        
     </head>
     <body>
         <script type="text/javascript">
@@ -97,16 +97,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
             });
 
-        </script>        
-        <div id="wrapper">  
-            <div id="container">  
-                <h1>Chat WebSockets Client</h1>  
+        </script>       
+        <div class="container">
+            <div class="page-header">
+                <h1>WebSockets Client - Chat</h1>
+            </div>
+            <ul class="nav nav-tabs">
+                <li><a href="index.html">Home</a></li>
+                <li class="active"><a href="chat.html">chat</a></li>
+                <li><a href="delayed.html">delayed</a></li>
+            </ul>
 
-                <div id="chatLog">  
-                </div>  
-                <input id="text" type="text" />  
-                <button id="disconnect">Disconnect</button>  
-            </div>  
+            <div id="chatLog"></div>  
+            <input id="text" type="text" />  
+            <button id="disconnect" class="btn btn-danger">Disconnect</button>  
         </div>
     </body>
 </html>

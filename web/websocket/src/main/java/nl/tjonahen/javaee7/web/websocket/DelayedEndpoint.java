@@ -16,6 +16,8 @@
  */
 package nl.tjonahen.javaee7.web.websocket;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.websocket.OnMessage;
 import javax.websocket.server.ServerEndpoint;
 
@@ -24,11 +26,16 @@ import javax.websocket.server.ServerEndpoint;
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
 @ServerEndpoint("/delayed")
-public class Delayed {
+public class DelayedEndpoint {
 
     @OnMessage
-    public String onMessage(String message) throws InterruptedException {
-        Thread.sleep(10000);
+    public String onMessage(final String message) {
+        System.out.println("Delayed......");
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(DelayedEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return message;
     }
     
