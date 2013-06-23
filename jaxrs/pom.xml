@@ -13,5 +13,6 @@
     <modules>
         <module>restfullftl</module>
         <module>restfullftlprovider</module>
+        <module>fileupload</module>
     </modules>
 </project>
