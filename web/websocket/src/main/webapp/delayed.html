@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     function connect() {
                         var socket;
-                        var host = "ws://localhost:8080/websocket/delayed";
+                        var host = "ws://"+location.host+"/websocket/delayed";
 
                         try {
                             var socket = new WebSocket(host);

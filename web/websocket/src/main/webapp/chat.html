@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     function connect() {
                         var socket;
-                        var host = "ws://localhost:8080/websocket/chat";
+                        var host = "ws://"+location.host+"/websocket/chat";
 
                         try {
                             var socket = new WebSocket(host);
@@ -44,7 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                             message('<p class="event">Socket Status: ' + socket.readyState);
 
                             socket.onopen = function() {
-                                message('<p class="event">Socket Status: ' + socket.readyState + ' (open)');
+                                message('<p class="event">Socket Status: ' + socket.readyState + ' (open) ' + host);
                             }
 
                             socket.onmessage = function(msg) {
