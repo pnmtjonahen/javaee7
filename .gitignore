@@ -9,3 +9,4 @@
 /jpa/collection/derby.log
 /web/websocket/target/
 /jaxrs/fileupload/target/
+/cdi/event/target/

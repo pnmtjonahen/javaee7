@@ -1,0 +1,86 @@
+<!--
+Copyright (C) 2013 Philippe Tjon-A-Hen philippe@tjonahen.nl
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Event receiver</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <script src="http://code.jquery.com/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>        
+    </head>
+    <body>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                if (!("WebSocket" in window)) {
+                    $('#events, input, button, #examples').fadeOut("fast");
+                    $('<p>Oh no, you need a browser that supports WebSockets. How about <a href="http://www.google.com/chrome">Google Chrome</a>?</p>').appendTo('#container');
+                } else {
+                    //The user has WebSockets
+
+
+                    function connect() {
+                        var socket;
+                        var host = "ws://"+location.host+"/event/events";
+
+                        try {
+                            var socket = new WebSocket(host);
+
+                            message('<p class="event">Socket Status: ' + socket.readyState);
+
+                            socket.onopen = function() {
+                                message('<p class="event">Socket Status: ' + socket.readyState + ' (open) ' + host);
+                            }
+
+                            socket.onmessage = function(msg) {
+                                message('<p class="message">Received: ' + msg.data);
+                            }
+
+                            socket.onclose = function() {
+                                message('<p class="event">Socket Status: ' + socket.readyState + ' (Closed)');
+                            }
+
+                        } catch (exception) {
+                            message('<p>Error' + exception);
+                        }
+
+
+                        function message(msg) {
+                            $('#events').append(msg + '</p>');
+                        }
+
+                    }//End connect
+                    connect();
+
+                }//End else
+
+            });
+
+        </script>       
+        <div class="container">
+            <div class="page-header">
+                <h1>Event receiver</h1>
+            </div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="event.html">Events</a></li>
+            </ul>
+
+            <div id="events"></div>  
+        </div>
+    </body>
+</html>
