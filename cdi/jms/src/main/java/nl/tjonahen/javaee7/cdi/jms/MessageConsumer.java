@@ -26,6 +26,9 @@ import javax.jms.MessageListener;
 
 /**
  * MDB receiving messages. 
+ * 
+ * Class created with the netbeans wizzard.
+ * 
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
 @MessageDriven(mappedName = "jms/dataqueue", activationConfig = {

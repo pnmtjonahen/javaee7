@@ -19,3 +19,4 @@ xsd validation using a Handler and implements both JUnit tests and Integration t
 
 * cdi CDI related demo/test
     * event CDI events between JAX-RS, EJB and WebSockets
+    * jms verry simple jms sample, send message from JAX-RS to an MDB
