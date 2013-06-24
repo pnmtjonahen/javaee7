@@ -10,3 +10,4 @@
 /web/websocket/target/
 /jaxrs/fileupload/target/
 /cdi/event/target/
+/cdi/jms/target/

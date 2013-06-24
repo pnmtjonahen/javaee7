@@ -12,5 +12,6 @@
   <name>JavaEE7 CDI</name>
     <modules>
         <module>event</module>
+        <module>jms</module>
     </modules>
 </project>
