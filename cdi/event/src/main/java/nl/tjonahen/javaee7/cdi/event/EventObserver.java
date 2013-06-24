@@ -20,52 +20,54 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.websocket.OnClose;
-import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 /**
- *
+ * Making the WebSocket endpoint ApplicationScoped makes it a CDI managed bean allowing it to receive the CDI events.
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
+@ApplicationScoped
 @ServerEndpoint("/events")
 public class EventObserver {
 
     private static final Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
     
+    /**
+     * Register a session.
+     * @param session - 
+     */
     @OnOpen
     public void onOpen(final Session session) {
         System.out.println("onOpen");
         sessions.add(session);
     }
-    
+
+    /**
+     * De-register a session.
+     * @param session -
+     */
     @OnClose
     public void onCLose(final Session session) {
         System.out.println("onClose");
         sessions.remove(session);
     }
-    
-    @OnMessage
-    public void onMessage(final String message) {
-        System.out.println("onMessage " + message);
-    }
 
     /**
-     * Handles the message event.
-     * @param msg  -
+     * Handles the CDI event.
+     *
+     * @param msg -
      */
-    public void onCdiEvent(final @Observes @MessageEvent Message msg) {
-        System.out.println("WebSocket event recieved " + msg.getSomeData());
-        
+    public void onCdiEvent(final @Observes Payload msg) {
         for (final Session session : sessions) {
             if (session.isOpen()) {
                 try {
-                    session.getBasicRemote().sendText("Event.." + msg.getSomeData());
+                    session.getBasicRemote().sendText("Event.. " + msg.getSomeData());
                 } catch (IOException ex) {
-                    
                 }
             }
         }

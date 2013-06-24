@@ -16,17 +16,18 @@
  */
 package nl.tjonahen.javaee7.cdi.event;
 
-import javax.ejb.Stateless;
-import javax.enterprise.event.Observes;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import javax.inject.Qualifier;
 
 /**
  *
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
-@Stateless
-public class EjbEventObserver {
-
-    public void onCdiEvent(final @Observes @MessageEvent Message msg) {
-        System.out.println("EJB event recieved " + msg.getSomeData());
-    }
+@Qualifier
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER, ElementType.TYPE})
+public @interface PayloadEvent {
 }

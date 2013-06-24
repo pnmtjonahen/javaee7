@@ -20,7 +20,7 @@ package nl.tjonahen.javaee7.cdi.event;
  *
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
-public class Message {
+public class Payload {
     private String someData;
 
     public String getSomeData() {

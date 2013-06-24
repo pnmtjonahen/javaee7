@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
                     function connect() {
                         var socket;
-                        var host = "ws://"+location.host+"/event/events";
+                        var host = "ws://" + location.host + "/event/events";
 
                         try {
                             var socket = new WebSocket(host);
@@ -58,8 +58,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                         } catch (exception) {
                             message('<p>Error' + exception);
                         }
-
-
                         function message(msg) {
                             $('#events').append(msg + '</p>');
                         }
@@ -79,7 +77,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <ul class="nav nav-tabs">
                 <li class="active"><a href="event.html">Events</a></li>
             </ul>
-
             <div id="events"></div>  
         </div>
     </body>

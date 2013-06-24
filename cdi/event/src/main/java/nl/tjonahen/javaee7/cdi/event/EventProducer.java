@@ -25,18 +25,16 @@ import javax.ws.rs.PathParam;
 
 /**
  *
- * Produces the CDI message event.
+ * Making the JAX-RS endpoint ApplicationScoped makes it a CDI managed bean and allows it to fire CDI events.
  * 
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
-@Path("/producer")
 @ApplicationScoped
+@Path("/producer")
 public class EventProducer {
     
     @Inject
-    @MessageEvent
-    private Event<Message> eventMessage;
-    
+    private Event<Payload> eventMessage;
    
     /**
      * 
@@ -46,7 +44,7 @@ public class EventProducer {
     @GET
     @Path("/{message}")
     public String get(final @PathParam("message") String message) {
-        final Message msg = new Message();
+        final Payload msg = new Payload();
         msg.setSomeData(message);
 
         eventMessage.fire(msg);
