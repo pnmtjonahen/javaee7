@@ -34,5 +34,7 @@
         <module>jpa</module>
     <module>web</module>
     <module>cdi</module>
-  </modules>
+    <module>jaxb</module>
+        <module>jaxb</module>
+    </modules>
 </project>

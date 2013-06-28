@@ -13,3 +13,4 @@
 /cdi/jms/target/
 /jaxrs/contractlast/target/
 /jaxrs/jpa2json2xml/target/
+/jaxb/xsd2java/target/

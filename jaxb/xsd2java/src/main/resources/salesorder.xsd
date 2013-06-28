@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+Copyright (C) 2013 Philippe Tjon-A-Hen philippe@tjonahen.nl
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified"
+           targetNamespace="http://xsd.jaxb.javaee7.tjonahen.nl"
+           xmlns:tns="http://xsd.jaxb.javaee7.tjonahen.nl">
+
+    <xs:element name="SalesOrder">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:integer"/>
+                <xs:element name="SalesOrderLineCollection" type="tns:SalesOrderLineCollection"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="SalesOrderLineCollection">
+        <xs:sequence>
+            <xs:element name="SalesOrderLine" minOccurs="1" maxOccurs="10" type="tns:SalesOrderLine"/>
+        </xs:sequence>
+    </xs:complexType>    
+
+    <xs:complexType name="SalesOrderLine">
+        <xs:sequence>
+            <xs:element name="id" type="xs:integer"/>
+            <xs:element name="price" type="xs:decimal"/>
+            <xs:element name="product" type="tns:Product"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Product">
+        <xs:sequence>
+            <xs:element name="id" type="xs:integer"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
