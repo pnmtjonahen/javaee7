@@ -14,5 +14,6 @@
         <module>restfullftl</module>
         <module>restfullftlprovider</module>
         <module>fileupload</module>
+        <module>jpa2json2xml</module>
     </modules>
 </project>

@@ -11,3 +11,5 @@
 /jaxrs/fileupload/target/
 /cdi/event/target/
 /cdi/jms/target/
+/jaxrs/contractlast/target/
+/jaxrs/jpa2json2xml/target/

@@ -77,10 +77,10 @@ public class SalesOrderTest {
         product.setName("Useless Box Kit");
         product.setDescription("Ok, so it's a black box, sort of shiny, with a switch on top.");
 
-        final SalesOrder bestelOrder = new SalesOrder();
-        bestelOrder.add(product, new BigDecimal("39.99"));
+        final SalesOrder salesOrder = new SalesOrder();
+        salesOrder.add(product, new BigDecimal("39.99"));
         
-        entityManager.persist(bestelOrder);
+        entityManager.persist(salesOrder);
 
         entityTransaction.commit();
         
@@ -88,7 +88,7 @@ public class SalesOrderTest {
         
         Assert.assertEquals(1, orders.size());
         
-        Assert.assertTrue(bestelOrder.contains("Useless Box Kit"));
+        Assert.assertTrue(salesOrder.contains("Useless Box Kit"));
         
     }
 
