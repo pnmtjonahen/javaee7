@@ -17,16 +17,21 @@
 package nl.tjonahen.javaee7.jaxb.java2xsd;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.SchemaOutputResolver;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
 import nl.tjonahen.javaee7.jaxb.xsd.ObjectFactory;
 import nl.tjonahen.javaee7.jaxb.xsd.Product;
 import nl.tjonahen.javaee7.jaxb.xsd.SalesOrder;
@@ -72,7 +77,7 @@ public class JaxbTest {
         final ByteArrayOutputStream bos = new ByteArrayOutputStream();
         final XMLStreamWriter writer = XMLOutputFactory.newFactory().createXMLStreamWriter(bos);
         m.marshal(so, writer);
-        
+
         Assert.assertEquals("<?xml version=\"1.0\" ?><SalesOrder xmlns=\"http://xsd.jaxb.javaee7.tjonahen.nl\"><id>1</id><SalesOrderLineCollection><SalesOrderLine><id>1</id><price>0</price><product><id>1</id><name>Useless Box</name><description>A shining black box</description></product></SalesOrderLine></SalesOrderLineCollection></SalesOrder>", bos.toString());
     }
 
@@ -85,5 +90,18 @@ public class JaxbTest {
         final SalesOrder so = (SalesOrder) u.unmarshal(resourceAsStream);
 
         Assert.assertEquals(new BigInteger("1"), so.getId());
+    }
+
+    @Test
+    public void generateXsd() throws JAXBException, IOException {
+        final File baseDir = new File("./target");
+        
+        JAXBContext context = JAXBContext.newInstance("nl.tjonahen.javaee7.jaxb.xsd");
+        context.generateSchema(new SchemaOutputResolver() {
+            @Override
+            public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
+                return new StreamResult(new File(baseDir, suggestedFileName));
+            }
+        });
     }
 }
