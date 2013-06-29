@@ -9,6 +9,14 @@
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
       <property name="javax.persistence.jdbc.user" value=""/>        
       <property name="eclipselink.ddl-generation" value="create-tables"/>
+      
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.logging.timestamp" value="true"/>
+      <property name="eclipselink.logging.session" value="true"/>
+      <property name="eclipselink.logging.thread" value="false"/>
+      <property name="eclipselink.logging.exceptions" value="true"/>
+      <property name="eclipselink.logging.logger" value="ServerLogger"/>
     </properties>
   </persistence-unit>
 </persistence>

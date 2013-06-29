@@ -18,18 +18,13 @@ package nl.tjonahen.javaee7.jaxrs.jpa.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -124,6 +119,13 @@ public class SalesOrder implements Serializable {
     public void add(final Product product, final BigDecimal price) {
         init();
         salesOrderLineCollection.add(product, price);
+    }
+    
+    /**
+     * Fixes the FK relationship
+     */
+    public void fixRelations() {
+        salesOrderLineCollection.fixRelations(this);
     }
     
 }

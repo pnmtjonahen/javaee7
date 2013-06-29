@@ -58,6 +58,7 @@ public class OrderService {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     public void putOrder(final SalesOrder salesOrder) {
+        salesOrder.fixRelations();
         entityManager.persist(salesOrder);
     }
 
@@ -70,11 +71,7 @@ public class OrderService {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public SalesOrder getSalesOrder(@PathParam("id") final Long id) {
-        final SalesOrder salesOrder = entityManager.find(SalesOrder.class, id);
-        
-        salesOrder.toString();
-        
-        return salesOrder;
+        return entityManager.find(SalesOrder.class, id);
     }
     
     @POST

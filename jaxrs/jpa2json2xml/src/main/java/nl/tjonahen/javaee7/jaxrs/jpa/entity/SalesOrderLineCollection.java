@@ -43,17 +43,17 @@ public class SalesOrderLineCollection implements Serializable {
 
     @OneToMany(mappedBy = "salesOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @XmlElement(name = "salesOrderLine", required = true)
-    private Collection<SalesOrderLine> salesOrderLine;
+    private Collection<SalesOrderLine> salesOrderLines;
 
     public SalesOrderLineCollection() {
     }
     
     boolean contains(final String productName) {
-        if (salesOrderLine == null) {
+        if (salesOrderLines == null) {
             return false;
         }
-        for (SalesOrderLine bestelOrderLine: salesOrderLine) {
-            if (bestelOrderLine.containsProduct(productName)) {
+        for (SalesOrderLine salesOrderLine: salesOrderLines) {
+            if (salesOrderLine.containsProduct(productName)) {
                 return true;
             }
         }
@@ -61,10 +61,16 @@ public class SalesOrderLineCollection implements Serializable {
     }    
 
     void add(final Product product, final BigDecimal price) {
-        if (salesOrderLine == null) {
-            salesOrderLine = new ArrayList<>();
+        if (salesOrderLines == null) {
+            salesOrderLines = new ArrayList<>();
         }
-        salesOrderLine.add(new SalesOrderLine(product, price));
+        salesOrderLines.add(new SalesOrderLine(product, price));
+    }
+
+    void fixRelations(final SalesOrder salesOrder) {
+        for (SalesOrderLine salesOrderLine: salesOrderLines) {
+            salesOrderLine.setSalesOrder(salesOrder);
+        }
     }
 
 }
