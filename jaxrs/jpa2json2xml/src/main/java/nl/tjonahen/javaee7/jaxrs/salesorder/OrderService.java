@@ -78,7 +78,9 @@ public class OrderService {
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     public void postSalesOrder(@PathParam("id") final Long id, final SalesOrder salesOrder) {
-        // perform update
+        final SalesOrder current = entityManager.find(SalesOrder.class, id);
+        current.updateWith(salesOrder);
+        entityManager.merge(current);
     }
     
     @DELETE

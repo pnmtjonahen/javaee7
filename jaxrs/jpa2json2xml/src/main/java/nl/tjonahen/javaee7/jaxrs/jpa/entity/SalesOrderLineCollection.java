@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
@@ -71,6 +72,48 @@ public class SalesOrderLineCollection implements Serializable {
         for (SalesOrderLine salesOrderLine: salesOrderLines) {
             salesOrderLine.setSalesOrder(salesOrder);
         }
+    }
+
+    /**
+     * 
+     * @param salesOrderLineCollection 
+     */
+    void updateWith(final SalesOrderLineCollection salesOrderLineCollection) {
+        final List<SalesOrderLine> deletedLines = new ArrayList<>();
+        for (final SalesOrderLine current : salesOrderLines) {
+            final SalesOrderLine updated = salesOrderLineCollection.find(current.getId());
+            if (updated != null) {
+                current.updateWith(updated);
+            } else {
+                deletedLines.add(current);
+            }
+        }
+        salesOrderLines.removeAll(deletedLines);
+        
+        salesOrderLines.addAll(salesOrderLineCollection.getNewSalesOrderLines());
+        
+    }
+
+    private SalesOrderLine find(final Long id) {
+        for (final SalesOrderLine salesOrderLine : salesOrderLines) {
+            if (id.equals(salesOrderLine.getId())) {
+                return salesOrderLine;
+            }
+        }
+        return null;
+    }
+
+    private Collection<? extends SalesOrderLine> getNewSalesOrderLines() {
+
+        final List<SalesOrderLine> newSalesOrders = new ArrayList<>();
+        
+        for (final SalesOrderLine salesOrderLine : salesOrderLines) {
+            if (salesOrderLine.isNew()) {
+                newSalesOrders.add(salesOrderLine);
+            }
+        }
+        
+        return newSalesOrders;
     }
 
 }

@@ -121,5 +121,14 @@ public class SalesOrderLine implements Serializable {
     boolean containsProduct(final String productName) {
         return product.isProduct(productName);
     }
+
+    void updateWith(final SalesOrderLine updated) {
+        this.price = updated.price;
+        this.product.updateWith(updated.product);
+    }
+
+    boolean isNew() {
+        return id == null || id == 0;
+    }
     
 }

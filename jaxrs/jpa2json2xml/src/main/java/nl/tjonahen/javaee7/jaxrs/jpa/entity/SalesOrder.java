@@ -127,5 +127,13 @@ public class SalesOrder implements Serializable {
     public void fixRelations() {
         salesOrderLineCollection.fixRelations(this);
     }
+
+    /**
+     * Update this with the new sales order data.
+     * @param salesOrder  -
+     */
+    public void updateWith(final SalesOrder salesOrder) {
+        salesOrderLineCollection.updateWith(salesOrder.salesOrderLineCollection);
+    }
     
 }

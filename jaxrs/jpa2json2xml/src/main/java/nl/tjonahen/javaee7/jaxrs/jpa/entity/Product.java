@@ -104,5 +104,10 @@ public class Product implements Serializable {
     boolean isProduct(final String productName) {
         return name.equals(productName);
     }
+
+    void updateWith(final Product product) {
+        this.name = product.name;
+        this.description = product.description;
+    }
     
 }

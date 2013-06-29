@@ -21,15 +21,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div ng-controller="SalesOrderDetailCtrl">
         <label>SalesOrderLines:</label>
         <table class="table table-hover">
-            <tr><th>#</th><th>price</th><th>name</th><th>description</th></tr>
+            <tr><th>#</th><th>price</th><th>name</th><th>description</th><th>action</th></tr>
             <tr ng-repeat="salesOrderLine in salesOrder.salesOrderLineCollection.salesOrderLine">
                 <td>{{salesOrderLine.id}}</td>
-                <td>{{salesOrderLine.price | currency}}</td>
-                <td>{{salesOrderLine.product.name}}</td>
-                <td>{{salesOrderLine.product.description}}</td>
+                <td><input type="number" ng-model="salesOrderLine.price" required/></td>
+                <td><input type="text" ng-model="salesOrderLine.product.name" required/></td>
+                <td><input type="text" ng-model="salesOrderLine.product.description" required/></td>
+                <td><button class="btn btn-warning" ng-click="removeSalesOrderLine(salesOrderLine)">Delete</button></td>
             </tr>
         </table>
-        <a href="#/orders" class="btn btn-primary">Back</a>
+        <p>
+            <button class="btn btn-primary" ng-click="addSalesOrderLine()">Add OrderLine</button>
+            <a href="#/orders" class="btn">Cancel</a>
+            <button class="btn" ng-click="saveSalesOrder()">Save Order</button>
+        </p>    
         <hr/>
         Debug View:
         <pre>salesOrder={{salesOrder | json}}</pre>

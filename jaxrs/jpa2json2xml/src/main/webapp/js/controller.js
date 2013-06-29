@@ -30,11 +30,34 @@ function SalesOrderListCtrl($scope, $http) {
 
 }
 
-function SalesOrderDetailCtrl($scope, $routeParams, $http) {
+function SalesOrderDetailCtrl($scope, $routeParams, $http, $location) {
     $http.get('rest/orders/' + $routeParams.orderId).success(function(data) {
         $scope.salesOrder = data;
     });
+    $scope.addSalesOrderLine = function() {
+        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push({id: '', price: '',
+            product: {id: '', name: '', description: ''}
+        });
+    };
 
+    $scope.removeSalesOrderLine = function(salesOrderLine) {
+        for (var i = 0, ii = $scope.salesOrder.salesOrderLineCollection.salesOrderLine.length; i < ii; i++) {
+            if (salesOrderLine === $scope.salesOrder.salesOrderLineCollection.salesOrderLine[i]) {
+                $scope.salesOrder.salesOrderLineCollection.salesOrderLine.splice(i, 1);
+            }
+        }
+    };
+    
+    $scope.saveMessage = "";
+    $scope.saveSalesOrder = function() {
+        $http.post('rest/orders/' + $scope.salesOrder.id, $scope.salesOrder)
+                .success(function(data) {
+                    $location.path("/orders");
+                })
+                .error(function(data, status, headers, config) {
+                    $scope.saveMessage = "an error occurred.......";
+                });
+    };
 }
 
 function NewSalesOrderDetailCtrl($scope, $http, $location) {
@@ -57,7 +80,7 @@ function NewSalesOrderDetailCtrl($scope, $http, $location) {
     $scope.removeSalesOrderLine = function(salesOrderLine) {
         for (var i = 0, ii = salesOrder.salesOrderLineCollection.salesOrderLine.length; i < ii; i++) {
             if (salesOrderLine === salesOrder.salesOrderLineCollection.salesOrderLine[i]) {
-                $scope.salesOrder.salesOrderLineCollection.salesOrderLine.splice(i, 1);
+                salesOrder.salesOrderLineCollection.salesOrderLine.splice(i, 1);
             }
         }
     };
@@ -68,7 +91,7 @@ function NewSalesOrderDetailCtrl($scope, $http, $location) {
                     $location.path("/orders");
                 })
                 .error(function(data, status, headers, config) {
-                    $scope.saveMessage = "an error occurred......."
+                    $scope.saveMessage = "an error occurred.......";
                 });
     };
 }
