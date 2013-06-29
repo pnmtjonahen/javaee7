@@ -26,7 +26,7 @@ function SalesOrderListCtrl($scope, $http) {
                 $scope.SalesOrders = data;
             });
         });
-    }
+    };
 
 }
 
@@ -38,19 +38,20 @@ function SalesOrderDetailCtrl($scope, $routeParams, $http) {
 }
 
 function NewSalesOrderDetailCtrl($scope, $http, $location) {
+    
     var salesOrder = $scope.salesOrder = {
         id: '',
-        salesOrderLineCollection:{        
-            salesOrderLine:[{id:'', price: '', 
-                                product: {id:'', name:'', description:''}
-                            }]
+        salesOrderLineCollection: {
+            salesOrderLine: [{id: '', price: '',
+                    product: {id: '', name: '', description: ''}
+                }]
         }
     };
 
     $scope.addSalesOrderLine = function() {
-        salesOrder.salesOrderLineCollection.salesOrderLine.push({id:'', price: '', 
-                                product: {id:'', name:'', description:''}
-                            });
+        salesOrder.salesOrderLineCollection.salesOrderLine.push({id: '', price: '',
+            product: {id: '', name: '', description: ''}
+        });
     };
 
     $scope.removeSalesOrderLine = function(salesOrderLine) {
@@ -60,10 +61,14 @@ function NewSalesOrderDetailCtrl($scope, $http, $location) {
             }
         }
     };
-    
+    $scope.saveMessage = "";
     $scope.saveSalesOrder = function() {
-        $http.put('rest/orders', salesOrder).success(function(data) {
-           $location.path( "/orders" ); 
-        });
+        $http.put('rest/orders', salesOrder)
+                .success(function(data) {
+                    $location.path("/orders");
+                })
+                .error(function(data, status, headers, config) {
+                    $scope.saveMessage = "an error occurred......."
+                });
     };
 }
