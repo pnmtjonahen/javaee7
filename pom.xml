@@ -32,9 +32,8 @@
         <module>jaxrs</module>
         <module>jaxws</module>
         <module>jpa</module>
-    <module>web</module>
-    <module>cdi</module>
-    <module>jaxb</module>
+        <module>web</module>
+        <module>cdi</module>
         <module>jaxb</module>
     </modules>
 </project>

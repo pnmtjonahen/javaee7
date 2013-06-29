@@ -14,3 +14,5 @@
 /jaxrs/contractlast/target/
 /jaxrs/jpa2json2xml/target/
 /jaxb/xsd2java/target/
+/SecurityManager/target/
+/securitymanager/target/
