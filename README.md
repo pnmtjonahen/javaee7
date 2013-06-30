@@ -3,9 +3,10 @@ javaee7
 My JavaEE7 samples, proof of concepts and other things I can think of :)
 
 * jax-rs contains the jax-rs webservices demo/test applications
-    * Ftl is a restfull webservice using ftl as an output templating engine
-    * Ftl Provider is also a restfull webservice using ftl as an output engine bud implemented differently
+    * Ftl is a restfull webservice using ftl as an output templating engine.
+    * Ftl Provider is also a restfull webservice using ftl as an output engine but implemented differently.
     * fileupload shows howto do a multipart file upload.
+    * jpa2json2xml Web application using JPA/JSON/JAXB entities backend and an angular.js as a frontend. 
 
 * jax-ws contains the jax-ws webservices demo/test applications
     * webservice implements some features I found and collected on the internet. Currently it implements 
