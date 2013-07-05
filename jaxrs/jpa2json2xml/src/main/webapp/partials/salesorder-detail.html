@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div class="page-header">
         <h1>Sales Order</h1>
     </div>
-    <div ng-controller="SalesOrderDetailCtrl">
+    <form name="salesOrderForm" ng-controller="SalesOrderDetailCtrl">
         <label>SalesOrderLines:</label>
         <table class="table table-hover">
             <tr><th>#</th><th>price</th><th>name</th><th>description</th><th>action</th></tr>
@@ -31,14 +31,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             </tr>
         </table>
         <p>
-            <button class="btn btn-primary" ng-click="addSalesOrderLine()">Add OrderLine</button>
+            <button class="btn btn-primary" ng-disabled="salesOrderForm.$invalid" ng-click="addSalesOrderLine()">Add OrderLine</button>
             <a href="#/orders" class="btn">Cancel</a>
-            <button class="btn" ng-click="saveSalesOrder()">Save Order</button>
+            <button class="btn" ng-disabled="salesOrderForm.$invalid" ng-click="saveSalesOrder()">Save Order</button>
         </p>
         <br/>{{saveMessage}}
         <hr/>
         Debug View:
         <pre>salesOrder={{salesOrder | json}}</pre>
-    </div>                
+        <pre>salesOrderForm.error = {{salesOrderForm.$error}}</pre>
+        <pre>salesOrderForm.valid = {{salesOrderForm.$valid}}</pre>        
+    </form>                
 </div>
 

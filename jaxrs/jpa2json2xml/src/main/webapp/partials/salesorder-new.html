@@ -18,27 +18,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <div class="page-header">
         <h1>Sales Order</h1>
     </div>
-    <div ng-controller="SalesOrderNewCtrl">
+    <form name="salesOrderForm" ng-controller="SalesOrderNewCtrl">
         <label>SalesOrderLines:</label>
-        
-<table class="table table-hover">
-            <tr><th>price</th><th>name</th><th>description</th><th>action</th></tr>        
-        <tr ng-repeat="salesOrderLine in salesOrder.salesOrderLineCollection.salesOrderLine">
-            <td><input type="number" ng-model="salesOrderLine.price" required/></td>
-            <td><input type="text" ng-model="salesOrderLine.product.name" required/></td>
-            <td><input type="text" ng-model="salesOrderLine.product.description" required/></td>
 
-            <td><button class="btn btn-warning" ng-click="removeSalesOrderLine(salesOrderLine)">Delete</button></td>
-        </tr>
-</table>    
+        <table class="table table-hover">
+            <tr><th>price</th><th>name</th><th>description</th><th>action</th></tr>        
+            <tr ng-repeat="salesOrderLine in salesOrder.salesOrderLineCollection.salesOrderLine">
+                <td><input name="price" type="number" ng-model="salesOrderLine.price" required /></td>
+                <td><input name="product.name" type="text" ng-model="salesOrderLine.product.name" required/></td>
+                <td><input name="product.description" type="text" ng-model="salesOrderLine.product.description" required/></td>
+
+                <td><button class="btn btn-warning" ng-click="removeSalesOrderLine(salesOrderLine)">Delete</button></td>
+            </tr>
+        </table>
         <p>
-            <button class="btn btn-primary" ng-click="addSalesOrderLine()">Add OrderLine</button>
+            <button class="btn btn-primary" ng-disabled="salesOrderForm.$invalid" ng-click="addSalesOrderLine()">Add OrderLine</button>
             <a href="#/orders" class="btn">Cancel</a>
-            <button class="btn" ng-click="saveSalesOrder()">Save Order</button>
+            <button class="btn" ng-disabled="salesOrderForm.$invalid" ng-click="saveSalesOrder()">Save Order</button>
         </p>
         <br/>{{saveMessage}}
         <hr/>
         Debug View:
         <pre>salesOrder={{salesOrder | json}}</pre>
-    </div>                
+        <pre>salesOrderForm.error = {{salesOrderForm.$error}}</pre>
+        <pre>salesOrderForm.valid = {{salesOrderForm.$valid}}</pre>
+    </form>                
 </div>

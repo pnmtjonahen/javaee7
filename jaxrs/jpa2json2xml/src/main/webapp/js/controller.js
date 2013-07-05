@@ -76,7 +76,7 @@ function SalesOrderNewCtrl($scope, $location, Orders) {
 
     $scope.removeSalesOrderLine = function(salesOrderLine) {
         for (var i = 0, ii = $scope.salesOrder.salesOrderLineCollection.salesOrderLine.length; i < ii; i++) {
-            if ($scope.salesOrderLine === $scope.salesOrder.salesOrderLineCollection.salesOrderLine[i]) {
+            if (salesOrderLine === $scope.salesOrder.salesOrderLineCollection.salesOrderLine[i]) {
                 $scope.salesOrder.salesOrderLineCollection.salesOrderLine.splice(i, 1);
             }
         }
