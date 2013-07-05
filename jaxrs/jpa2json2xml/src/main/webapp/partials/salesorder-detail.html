@@ -34,7 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
             <button class="btn btn-primary" ng-click="addSalesOrderLine()">Add OrderLine</button>
             <a href="#/orders" class="btn">Cancel</a>
             <button class="btn" ng-click="saveSalesOrder()">Save Order</button>
-        </p>    
+        </p>
+        <br/>{{saveMessage}}
         <hr/>
         Debug View:
         <pre>salesOrder={{salesOrder | json}}</pre>

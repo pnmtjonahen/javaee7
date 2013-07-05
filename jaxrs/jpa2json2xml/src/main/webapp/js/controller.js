@@ -15,25 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function SalesOrderListCtrl($scope, $http) {
-    $http.get('rest/orders').success(function(data) {
-        $scope.SalesOrders = data;
-    });
+function SalesOrderListCtrl($scope, Orders) {
+    $scope.saveMessage = "";
+    $scope.SalesOrders = Orders.query();
 
     $scope.delete = function(id) {
-        $http.delete('rest/orders/' + id).success(function(data) {
-            $http.get('rest/orders').success(function(data) {
-                $scope.SalesOrders = data;
-            });
+        Orders.delete({id: id}, function() {
+            $scope.SalesOrders = Orders.query();
+        }, function() {
+            $scope.saveMessage = "an error occurred.......";
         });
     };
 
 }
 
-function SalesOrderDetailCtrl($scope, $routeParams, $http, $location) {
-    $http.get('rest/orders/' + $routeParams.orderId).success(function(data) {
-        $scope.salesOrder = data;
-    });
+function SalesOrderDetailCtrl($scope, $routeParams, $location, Orders) {
+    $scope.saveMessage = "";
+    $scope.salesOrder = Orders.read({id: $routeParams.orderId});
+
     $scope.addSalesOrderLine = function() {
         $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push({id: '', price: '',
             product: {id: '', name: '', description: ''}
@@ -47,22 +46,20 @@ function SalesOrderDetailCtrl($scope, $routeParams, $http, $location) {
             }
         }
     };
-    
-    $scope.saveMessage = "";
+
+
     $scope.saveSalesOrder = function() {
-        $http.post('rest/orders/' + $scope.salesOrder.id, $scope.salesOrder)
-                .success(function(data) {
-                    $location.path("/orders");
-                })
-                .error(function(data, status, headers, config) {
-                    $scope.saveMessage = "an error occurred.......";
-                });
+        Orders.update({id: $scope.salesOrder.id}, $scope.salesOrder, function() {
+            $location.path("/orders");
+        }, function() {
+            $scope.saveMessage = "an error occurred.......";
+        });
     };
 }
 
-function NewSalesOrderDetailCtrl($scope, $http, $location) {
-    
-    var salesOrder = $scope.salesOrder = {
+function SalesOrderNewCtrl($scope, $location, Orders) {
+    $scope.saveMessage = "";
+    $scope.salesOrder = {
         id: '',
         salesOrderLineCollection: {
             salesOrderLine: [{id: '', price: '',
@@ -72,26 +69,24 @@ function NewSalesOrderDetailCtrl($scope, $http, $location) {
     };
 
     $scope.addSalesOrderLine = function() {
-        salesOrder.salesOrderLineCollection.salesOrderLine.push({id: '', price: '',
+        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push({id: '', price: '',
             product: {id: '', name: '', description: ''}
         });
     };
 
     $scope.removeSalesOrderLine = function(salesOrderLine) {
-        for (var i = 0, ii = salesOrder.salesOrderLineCollection.salesOrderLine.length; i < ii; i++) {
-            if (salesOrderLine === salesOrder.salesOrderLineCollection.salesOrderLine[i]) {
-                salesOrder.salesOrderLineCollection.salesOrderLine.splice(i, 1);
+        for (var i = 0, ii = $scope.salesOrder.salesOrderLineCollection.salesOrderLine.length; i < ii; i++) {
+            if ($scope.salesOrderLine === $scope.salesOrder.salesOrderLineCollection.salesOrderLine[i]) {
+                $scope.salesOrder.salesOrderLineCollection.salesOrderLine.splice(i, 1);
             }
         }
     };
-    $scope.saveMessage = "";
+
     $scope.saveSalesOrder = function() {
-        $http.put('rest/orders', salesOrder)
-                .success(function(data) {
-                    $location.path("/orders");
-                })
-                .error(function(data, status, headers, config) {
-                    $scope.saveMessage = "an error occurred.......";
-                });
+        Orders.save({}, $scope.salesOrder, function() {
+            $location.path("/orders");
+        }, function() {
+            $scope.saveMessage = "an error occurred.......";
+        });
     };
 }

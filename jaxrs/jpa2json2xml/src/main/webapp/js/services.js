@@ -14,10 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('salesOrderServices', ['ngResource']).
-        factory('SalesOrder', function($resource) {
-    return $resource('rest/orders', {}, {
-        query: {method: 'GET', params: {}, isArray: true}
-    });
+angular.module('salesOrderServices', ['ngResource']).factory('Orders', function($resource) {
+            return $resource('rest/orders/:id', {id:'@id'}, {
+                query:  {method: 'GET', params: {}, isArray: true},
+                read:   {method: 'GET', params: {}, isArray: false},
+                delete: {method: 'DELETE', params: {}, isArray: false},
+                update: {method: 'POST', params: {}, isArray: false},
+                save:   {method: 'PUT', params: {}, isArray: false}
+            });
 });
+
+
 

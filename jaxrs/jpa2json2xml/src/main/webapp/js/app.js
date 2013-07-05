@@ -14,12 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('salesordercat', []).
+angular.module('salesordercat', ['salesOrderServices']).
         config(['$routeProvider', function($routeProvider) {
         $routeProvider.
                 when('/orders', {templateUrl: 'partials/salesorder-list.html', controller: SalesOrderListCtrl}).
                 when('/orders/:orderId', {templateUrl: 'partials/salesorder-detail.html', controller: SalesOrderDetailCtrl}).
-                when('/new', {templateUrl: 'partials/new-salesorder-detail.html', controller: NewSalesOrderDetailCtrl}).
+                when('/new', {templateUrl: 'partials/salesorder-new.html', controller: SalesOrderNewCtrl}).
                 otherwise({redirectTo: '/orders'});
     }]);
 
