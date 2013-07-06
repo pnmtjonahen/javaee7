@@ -13,7 +13,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */package nl.tjonahen.javaee7.jaxrs.salesorder;
+ */
+package nl.tjonahen.javaee7.jaxrs.salesorder;
 
 import java.util.List;
 import javax.ejb.Stateless;

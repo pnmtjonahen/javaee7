@@ -21,9 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <form name="salesOrderForm" ng-controller="SalesOrderDetailCtrl">
         <label>SalesOrderLines:</label>
         <table class="table table-hover">
-            <tr><th>#</th><th>price</th><th>name</th><th>description</th><th>action</th></tr>
+            <tr><th>#</th><th>number</th><th>price</th><th>name</th><th>description</th><th>action</th></tr>
             <tr ng-repeat="salesOrderLine in salesOrder.salesOrderLineCollection.salesOrderLine">
                 <td>{{salesOrderLine.id}}</td>
+                <td><input name="number" type="number" ng-model="salesOrderLine.number" required /></td>
                 <td><input type="number" ng-model="salesOrderLine.price" required/></td>
                 <td><input type="text" ng-model="salesOrderLine.product.name" required/></td>
                 <td><input type="text" ng-model="salesOrderLine.product.description" required/></td>

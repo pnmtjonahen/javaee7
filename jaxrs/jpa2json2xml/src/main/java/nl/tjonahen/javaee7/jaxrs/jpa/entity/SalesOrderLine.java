@@ -18,6 +18,7 @@ package nl.tjonahen.javaee7.jaxrs.jpa.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -69,13 +70,18 @@ public class SalesOrderLine implements Serializable {
     @XmlElement(required = true)
     private BigDecimal price;
 
+    @Basic
+    @XmlElement(required = true)
+    private BigInteger number;
+
     public SalesOrderLine() {
         
     }
     
-    SalesOrderLine(final Product product, final BigDecimal price) {
+    SalesOrderLine(final Product product, final BigDecimal price, final BigInteger number) {
         this.product = product;
         this.price = price;
+        this.number = number;
     }
             
     public Long getId() {
@@ -98,7 +104,11 @@ public class SalesOrderLine implements Serializable {
     public BigDecimal getPrice() {
         return price;
     }
-    
+
+    public BigInteger getNumber() {
+        return number;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -130,6 +140,7 @@ public class SalesOrderLine implements Serializable {
 
     void updateWith(final SalesOrderLine updated) {
         this.price = updated.price;
+        this.number = updated.number;
         this.product.updateWith(updated.product);
     }
 

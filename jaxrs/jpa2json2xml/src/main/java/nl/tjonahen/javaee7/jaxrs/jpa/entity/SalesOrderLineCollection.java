@@ -18,6 +18,7 @@ package nl.tjonahen.javaee7.jaxrs.jpa.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -67,11 +68,11 @@ public class SalesOrderLineCollection implements Serializable {
         return false;
     }    
 
-    void add(final Product product, final BigDecimal price) {
+    void add(final Product product, final BigDecimal price, final BigInteger number) {
         if (salesOrderLines == null) {
             salesOrderLines = new ArrayList<>();
         }
-        salesOrderLines.add(new SalesOrderLine(product, price));
+        salesOrderLines.add(new SalesOrderLine(product, price, number));
     }
 
     void fixRelations(final SalesOrder salesOrder) {

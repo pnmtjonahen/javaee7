@@ -18,6 +18,7 @@ package nl.tjonahen.javaee7.jaxrs.jpa.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -125,10 +126,11 @@ public class SalesOrder implements Serializable {
      * 
      * @param product -
      * @param price -
+     * @param number -
      */
-    public void add(final Product product, final BigDecimal price) {
+    public void add(final Product product, final BigDecimal price, final BigInteger number) {
         init();
-        salesOrderLineCollection.add(product, price);
+        salesOrderLineCollection.add(product, price, number);
     }
     
     /**
