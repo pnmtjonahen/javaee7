@@ -41,6 +41,10 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Product implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    static Product create() {
+        return new Product();
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlElement(required = true)

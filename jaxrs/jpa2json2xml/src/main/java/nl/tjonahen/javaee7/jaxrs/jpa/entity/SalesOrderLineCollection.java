@@ -42,6 +42,12 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class SalesOrderLineCollection implements Serializable {
 
+    static SalesOrderLineCollection create() {
+        final SalesOrderLineCollection salesOrderLineCollection = new SalesOrderLineCollection();
+        salesOrderLineCollection.salesOrderLines = new ArrayList<>();
+        return salesOrderLineCollection;
+    }
+
     @OneToMany(mappedBy = "salesOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @XmlElement(name = "salesOrderLine", required = true)
     private Collection<SalesOrderLine> salesOrderLines;

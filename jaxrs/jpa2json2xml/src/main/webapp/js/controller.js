@@ -29,14 +29,12 @@ function SalesOrderListCtrl($scope, Orders) {
 
 }
 
-function SalesOrderDetailCtrl($scope, $routeParams, $location, Orders) {
+function SalesOrderDetailCtrl($scope, $routeParams, $location, Orders, NewSalesOrderLine) {
     $scope.saveMessage = "";
     $scope.salesOrder = Orders.read({id: $routeParams.orderId});
 
     $scope.addSalesOrderLine = function() {
-        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push({id: '', price: '',
-            product: {id: '', name: '', description: ''}
-        });
+        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push(NewSalesOrderLine.create());
     };
 
     $scope.removeSalesOrderLine = function(salesOrderLine) {
@@ -57,21 +55,12 @@ function SalesOrderDetailCtrl($scope, $routeParams, $location, Orders) {
     };
 }
 
-function SalesOrderNewCtrl($scope, $location, Orders) {
+function SalesOrderNewCtrl($scope, $location, Orders, NewSalesOrder, NewSalesOrderLine) {
     $scope.saveMessage = "";
-    $scope.salesOrder = {
-        id: '',
-        salesOrderLineCollection: {
-            salesOrderLine: [{id: '', price: '',
-                    product: {id: '', name: '', description: ''}
-                }]
-        }
-    };
+    $scope.salesOrder = NewSalesOrder.create();
 
     $scope.addSalesOrderLine = function() {
-        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push({id: '', price: '',
-            product: {id: '', name: '', description: ''}
-        });
+        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push(NewSalesOrderLine.create());
     };
 
     $scope.removeSalesOrderLine = function(salesOrderLine) {

@@ -14,14 +14,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('salesOrderServices', ['ngResource']).factory('Orders', function($resource) {
-            return $resource('rest/orders/:id', {id:'@id'}, {
-                query:  {method: 'GET', params: {}, isArray: true},
-                read:   {method: 'GET', params: {}, isArray: false},
-                delete: {method: 'DELETE', params: {}, isArray: false},
-                update: {method: 'POST', params: {}, isArray: false},
-                save:   {method: 'PUT', params: {}, isArray: false}
-            });
+var salesOrderServiceModule = angular.module('salesOrderServices', ['ngResource']);
+salesOrderServiceModule.factory('Orders', function($resource) {
+    return $resource('rest/orders/:id', {id:'@id'}, {
+        query:  {method: 'GET', params: {}, isArray: true},
+        read:   {method: 'GET', params: {}, isArray: false},
+        delete: {method: 'DELETE', params: {}, isArray: false},
+        update: {method: 'POST', params: {}, isArray: false},
+        save:   {method: 'PUT', params: {}, isArray: false}
+    });
+});
+salesOrderServiceModule.factory('NewSalesOrder', function($resource) {
+   return $resource('rest/orders/newsalesorder', {}, {
+       create: {method: 'GET', params: {}, isArray:false}
+   }); 
+});
+salesOrderServiceModule.factory('NewSalesOrderLine', function($resource) {
+   return $resource('rest/orders/newsalesorderline', {}, {
+       create: {method: 'GET', params: {}, isArray:false}
+   }); 
 });
 
 

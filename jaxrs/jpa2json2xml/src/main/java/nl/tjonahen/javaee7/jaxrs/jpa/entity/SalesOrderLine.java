@@ -45,6 +45,12 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class SalesOrderLine implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    public static SalesOrderLine create() {
+        final SalesOrderLine salesOrderLine = new SalesOrderLine();
+        salesOrderLine.product = Product.create();
+        return salesOrderLine;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlElement(required = true)

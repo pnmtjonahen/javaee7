@@ -48,6 +48,16 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "SalesOrder")
 public class SalesOrder implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    
+    public static SalesOrder create() {
+        final SalesOrder salesOrder = new SalesOrder();
+        salesOrder.salesOrderLineCollection = SalesOrderLineCollection.create();
+        return salesOrder;
+    }
+
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlElement(required = true)

@@ -29,6 +29,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import nl.tjonahen.javaee7.jaxrs.jpa.entity.SalesOrder;
+import nl.tjonahen.javaee7.jaxrs.jpa.entity.SalesOrderLine;
 
 /**
  * Sales Order rest service
@@ -88,4 +89,18 @@ public class OrderService {
     public void deleteSalesOrder(@PathParam("id") final Long id) {
         entityManager.remove(entityManager.find(SalesOrder.class, id));
     }
+    
+    @GET
+    @Path("/newsalesorder")
+    public SalesOrder newSalesOrder() {
+        return SalesOrder.create();
+    }
+
+    @GET
+    @Path("/newsalesorderline")
+    public SalesOrderLine newSalesOrderLine() {
+        return SalesOrderLine.create();
+    }
+    
+    
 }
