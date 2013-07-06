@@ -13,5 +13,6 @@
     <modules>
         <module>event</module>
         <module>jms</module>
-    </modules>
+    <module>aop</module>
+  </modules>
 </project>

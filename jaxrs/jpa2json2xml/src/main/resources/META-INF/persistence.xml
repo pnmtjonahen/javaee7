@@ -10,7 +10,7 @@
       <property name="javax.persistence.jdbc.user" value=""/>        
       <property name="eclipselink.ddl-generation" value="create-tables"/>
       
-      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.logging.level" value="SEVERE"/>
       <property name="eclipselink.logging.parameters" value="true"/>
       <property name="eclipselink.logging.timestamp" value="true"/>
       <property name="eclipselink.logging.session" value="true"/>
