@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-angular.module('salesordercat', ['salesOrderServices']).
+angular.module('salesOrderApp', ['salesOrderServices']).
         config(['$routeProvider', function($routeProvider) {
         $routeProvider.
                 when('/orders', {templateUrl: 'partials/salesorder-list.html', controller: SalesOrderListCtrl}).

@@ -15,13 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function SalesOrderListCtrl($scope, Orders) {
+function SalesOrderListCtrl($scope, orders) {
     $scope.saveMessage = "";
-    $scope.SalesOrders = Orders.query();
+    $scope.SalesOrders = orders.query();
 
     $scope.delete = function(id) {
-        Orders.delete({id: id}, function() {
-            $scope.SalesOrders = Orders.query();
+        orders.delete({id: id}, function() {
+            $scope.SalesOrders = orders.query();
         }, function() {
             $scope.saveMessage = "an error occurred.......";
         });
@@ -29,12 +29,12 @@ function SalesOrderListCtrl($scope, Orders) {
 
 }
 
-function SalesOrderDetailCtrl($scope, $routeParams, $location, Orders, NewSalesOrderLine) {
+function SalesOrderDetailCtrl($scope, $routeParams, $location, orders, newSalesOrderLine) {
     $scope.saveMessage = "";
-    $scope.salesOrder = Orders.read({id: $routeParams.orderId});
+    $scope.salesOrder = orders.read({id: $routeParams.orderId});
 
     $scope.addSalesOrderLine = function() {
-        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push(NewSalesOrderLine.create());
+        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push(newSalesOrderLine.create());
     };
 
     $scope.removeSalesOrderLine = function(salesOrderLine) {
@@ -47,7 +47,7 @@ function SalesOrderDetailCtrl($scope, $routeParams, $location, Orders, NewSalesO
 
 
     $scope.saveSalesOrder = function() {
-        Orders.update({id: $scope.salesOrder.id}, $scope.salesOrder, function() {
+        orders.update({id: $scope.salesOrder.id}, $scope.salesOrder, function() {
             $location.path("/orders");
         }, function() {
             $scope.saveMessage = "an error occurred.......";
@@ -55,12 +55,12 @@ function SalesOrderDetailCtrl($scope, $routeParams, $location, Orders, NewSalesO
     };
 }
 
-function SalesOrderNewCtrl($scope, $location, Orders, NewSalesOrder, NewSalesOrderLine) {
+function SalesOrderNewCtrl($scope, $location, orders, newSalesOrder, newSalesOrderLine) {
     $scope.saveMessage = "";
-    $scope.salesOrder = NewSalesOrder.create();
+    $scope.salesOrder = newSalesOrder.create();
 
     $scope.addSalesOrderLine = function() {
-        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push(NewSalesOrderLine.create());
+        $scope.salesOrder.salesOrderLineCollection.salesOrderLine.push(newSalesOrderLine.create());
     };
 
     $scope.removeSalesOrderLine = function(salesOrderLine) {
@@ -72,7 +72,7 @@ function SalesOrderNewCtrl($scope, $location, Orders, NewSalesOrder, NewSalesOrd
     };
 
     $scope.saveSalesOrder = function() {
-        Orders.save({}, $scope.salesOrder, function() {
+        orders.save({}, $scope.salesOrder, function() {
             $location.path("/orders");
         }, function() {
             $scope.saveMessage = "an error occurred.......";

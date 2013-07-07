@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 var salesOrderServiceModule = angular.module('salesOrderServices', ['ngResource']);
-salesOrderServiceModule.factory('Orders', function($resource) {
+salesOrderServiceModule.factory('orders', function($resource) {
     return $resource('rest/orders/:id', {id:'@id'}, {
         query:  {method: 'GET', params: {}, isArray: true},
         read:   {method: 'GET', params: {}, isArray: false},
@@ -24,12 +24,12 @@ salesOrderServiceModule.factory('Orders', function($resource) {
         save:   {method: 'PUT', params: {}, isArray: false}
     });
 });
-salesOrderServiceModule.factory('NewSalesOrder', function($resource) {
+salesOrderServiceModule.factory('newSalesOrder', function($resource) {
    return $resource('rest/orders/newsalesorder', {}, {
        create: {method: 'GET', params: {}, isArray:false}
    }); 
 });
-salesOrderServiceModule.factory('NewSalesOrderLine', function($resource) {
+salesOrderServiceModule.factory('newSalesOrderLine', function($resource) {
    return $resource('rest/orders/newsalesorderline', {}, {
        create: {method: 'GET', params: {}, isArray:false}
    }); 
