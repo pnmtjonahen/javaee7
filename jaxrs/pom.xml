@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>javaee7</artifactId>
-    <groupId>nl.tjonahen</groupId>
-    <version>1.1-SNAPSHOT</version>
-  </parent>
-  <groupId>nl.tjonahen.javaee7</groupId>
-  <artifactId>jaxrs</artifactId>
-  <packaging>pom</packaging>
-  <name>JavaEE7 JAX-RS</name>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>javaee7</artifactId>
+        <groupId>nl.tjonahen</groupId>
+        <version>1.1-SNAPSHOT</version>
+    </parent>
+    <groupId>nl.tjonahen.javaee7</groupId>
+    <artifactId>jaxrs</artifactId>
+    <packaging>pom</packaging>
+    <name>JavaEE7 JAX-RS</name>
     <modules>
         <module>restfullftl</module>
         <module>restfullftlprovider</module>
         <module>fileupload</module>
         <module>jpa2json2xml</module>
+        <module>restfull-basic</module>
+        <module>restfull-digest</module>
     </modules>
 </project>

@@ -18,3 +18,5 @@
 /securitymanager/target/
 /web/SSL/target/
 /cdi/aop/target/
+/jaxrs/restfull-basic/target/
+/jaxrs/restfull-digest/target/

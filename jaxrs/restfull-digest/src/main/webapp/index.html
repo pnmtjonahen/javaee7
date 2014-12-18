@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page - JavaEE7 JAX-RS Digest Authentication</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>JavaEE7 JAX RS with DIGEST Authentication - Additional Information</h1>
+        <p>This is a implementation of the person application as it described in "RESTFul Java WebServices Security" with additional Glasshfish configuration</p>
+        <ul>
+            <li>
+                Create database, use the create.sql to create the database, adn insert some users (see also the .sql scripts)
+            </li>
+            <li>
+                Create connectionPool and database resource, do not add the username/password to the connection pool, this prevents others to use the pool to read user info 
+            </li>
+            <li>
+                Create the jdbcDigestReal securityrealm, for Group table name do not use the groups table but use the users_groups join table
+            </li>
+        </ul>
+    </body>
+</html>
