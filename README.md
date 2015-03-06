@@ -24,4 +24,5 @@ xsd validation using a Handler and implements both JUnit tests and Integration t
     * aop a @Interceptor sample. TODO: @InterceptorBinding with the interceptor in beans.xml
 
 * jaxb JAXB related stuff, not really JavaEE but it is related
-    * xsd2java Show how to generated java classes from an xsd and vice verse
+    * xsd2java Shows how to generated java classes from an xsd and vice verse
+    * refid Shows how to handle refid/id constructs using an xsd and annotations, Work in progrss!

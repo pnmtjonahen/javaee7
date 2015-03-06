@@ -13,5 +13,6 @@
   <name>JavaEE7 JAXB</name>
     <modules>
         <module>xsd2java</module>
+        <module>refid</module>
     </modules>
 </project>
