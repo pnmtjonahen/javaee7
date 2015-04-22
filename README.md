@@ -22,6 +22,7 @@ xsd validation using a Handler and implements both JUnit tests and Integration t
     * event CDI events between JAX-RS, EJB and WebSockets
     * jms verry simple jms sample, send message from JAX-RS to an MDB
     * aop a @Interceptor sample. TODO: @InterceptorBinding with the interceptor in beans.xml
+    * spring Shows how to integrated Spring managed beans into your CDI manged beans. Bridging between Spring and CDI.
 
 * jaxb JAXB related stuff, not really JavaEE but it is related
     * xsd2java Shows how to generated java classes from an xsd and vice verse

@@ -14,5 +14,6 @@
         <module>event</module>
         <module>jms</module>
     <module>aop</module>
-  </modules>
+        <module>spring</module>
+    </modules>
 </project>
