@@ -66,6 +66,7 @@ public class ApplicationContextLocatorImpl implements ApplicationContextLocator 
         if (!applicationContext.containsBean(beanName)) {
             ConfigurableListableBeanFactory beanFactory = 
                     ((ConfigurableApplicationContext) applicationContext).getBeanFactory();
+            
             beanFactory.registerSingleton(beanName, this);
         }
 

@@ -33,6 +33,7 @@ public class SpringBeanFactory {
     @Produces
     @SpringCdi
     public SpringHelloWorldBusiness bridge() {
+        System.out.println("Getting spring bean " + ApplicationContextManager.getInstance());
         return (SpringHelloWorldBusiness) ApplicationContextManager.getInstance().getBean("springHelloWorldBusiness");
     }
     

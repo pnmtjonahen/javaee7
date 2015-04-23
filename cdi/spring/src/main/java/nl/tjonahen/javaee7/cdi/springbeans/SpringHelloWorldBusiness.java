@@ -26,6 +26,6 @@ import org.springframework.stereotype.Component;
 public class SpringHelloWorldBusiness {
     
     public String welcomeMessage() {
-        return "Hello from Spring Business";
+        return "Hello from " + this;
     }
 }
