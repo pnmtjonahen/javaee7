@@ -17,6 +17,6 @@
         <module>jpa2json2xml</module>
         <module>restfull-basic</module>
         <module>restfull-digest</module>
-        <module>bookshelf</module>
+        <module>csrf</module>
     </modules>
 </project>

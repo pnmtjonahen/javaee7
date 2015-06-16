@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CSRF. Lets eat grandma!</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <div>
+            <p class="greeting-content">Shout! </p>
+            <p><a href="#" onClick='calDelete()'>Done</a>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $.ajax({
+                    url: "http://localhost:8080/csrf/api/letseat/grandma"
+                }).then(function (data) {
+                    $('.greeting-content').append(data);
+                });
+            });
+
+            function calDelete() {
+                $.ajax({
+                    url: 'http://localhost:8080/csrf/api/letseat',
+                    type: 'DELETE',
+                    success: function (result) {
+                        $('.greeting-content').text('');
+                    }
+                });
+            }
+        </script>
+    </body>
+</html>
