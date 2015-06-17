@@ -35,10 +35,24 @@ public class GenerateCSRFCookieFilter implements ContainerResponseFilter {
     private HttpServletRequest hsr;
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
-        final String id = "ID:" + System.currentTimeMillis();
-        hsr.getSession().setAttribute("tjonahen-csrfp", id);
-        final NewCookie cookie = new NewCookie("tjonahen-csrfp", id);
+        System.out.println("Generate SessionID :" + hsr.getSession().getId());
+
+        final NewCookie cookie = new NewCookie("tjonahen-csrfp", getCookieValue());
         responseContext.getHeaders().add("Set-Cookie", cookie);
+    }
+
+    private String getCookieValue() {
+        String id = "ID:" + System.currentTimeMillis();
+        Object o = hsr.getSession().getAttribute("tjonahen-csrfp");
+        if (o == null) {
+            hsr.getSession().setAttribute("tjonahen-csrfp", id);
+            System.out.println("New cookie value " + id);
+        } else {
+            id = (String) o;
+            System.out.println("Existing cookie value " + id);
+        }
+        
+        return id;
     }
     
     

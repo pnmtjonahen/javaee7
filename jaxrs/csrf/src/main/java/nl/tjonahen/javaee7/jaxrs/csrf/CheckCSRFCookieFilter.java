@@ -37,6 +37,8 @@ public class CheckCSRFCookieFilter implements ContainerRequestFilter {
 
     @Override
     public void filter(ContainerRequestContext requestContext) {
+        
+        System.out.println("Check SessionID    :" + hsr.getSession().getId());
         if ("GET".equals(requestContext.getRequest().getMethod())) {
             return;
         }
@@ -49,12 +51,17 @@ public class CheckCSRFCookieFilter implements ContainerRequestFilter {
 
         for (Entry<String, Cookie> e : requestContext.getCookies().entrySet()) {
             if ("tjonahen-csrfp".equals(e.getKey())) {
+                System.out.println("Found cookie " + e.getValue());
                 Object o = hsr.getSession().getAttribute("tjonahen-csrfp");
                 if (o != null) {
                     String id = (String) o;
                     if (id.equals(e.getValue().getValue())) {
                         return;
+                    } else {
+                        System.out.println("Session cookie value mismatch.");
                     }
+                } else {
+                    System.out.println("No session cookie value.");
                 }
             }
         }

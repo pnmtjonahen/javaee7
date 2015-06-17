@@ -16,10 +16,12 @@
  */
 package nl.tjonahen.javaee7.jaxrs.csrf;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
 /**
@@ -28,15 +30,17 @@ import javax.ws.rs.core.Response;
  */
 @Path("/letseat")
 public class LetsEatResource {
-    
+    ;
     @GET
     @Path("/{n}")
-    public String dinner(@PathParam("n") String name) {
+    public String dinner(@Context HttpServletRequest request, @PathParam("n") String name) {
+        System.out.println("GET sessionID      :" + request.getSession().getId());
         return "Lets eat, " + name;
     }
     
     @DELETE
-    public Response deleteDinner() {
+    public Response deleteDinner(@Context HttpServletRequest request) {
+        System.out.println("DELETE sessionID   :" + request.getSession().getId());
         return Response.status(Response.Status.GONE).build();
     }
 }
