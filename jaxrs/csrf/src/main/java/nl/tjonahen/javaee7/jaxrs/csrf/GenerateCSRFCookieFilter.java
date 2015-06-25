@@ -16,43 +16,61 @@
  */
 package nl.tjonahen.javaee7.jaxrs.csrf;
 
+import java.io.IOException;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.container.ContainerResponseContext;
-import javax.ws.rs.container.ContainerResponseFilter;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.NewCookie;
-import javax.ws.rs.ext.Provider;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author Philippe Tjon - A - Hen, philippe@tjonahen.nl
  */
-@Provider
-public class GenerateCSRFCookieFilter implements ContainerResponseFilter {
+@WebFilter(filterName = "GenerateCSRFCookieFilter", urlPatterns = {"/*"})
+public class GenerateCSRFCookieFilter implements Filter {
 
-    @Context
-    private HttpServletRequest hsr;
-    @Override
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
-        System.out.println("Generate SessionID :" + hsr.getSession().getId());
 
-        final NewCookie cookie = new NewCookie("tjonahen-csrfp", getCookieValue());
-        responseContext.getHeaders().add("Set-Cookie", cookie);
-    }
 
-    private String getCookieValue() {
+    private String getCookieValue(final HttpServletRequest hsr) {
         String id = "ID:" + System.currentTimeMillis();
-        Object o = hsr.getSession().getAttribute("tjonahen-csrfp");
+        Object o = hsr.getSession().getAttribute(CSRFConstants.CSRF_SESSION_ATTRIBUTE);
         if (o == null) {
-            hsr.getSession().setAttribute("tjonahen-csrfp", id);
-            System.out.println("New cookie value " + id);
+            hsr.getSession().setAttribute(CSRFConstants.CSRF_SESSION_ATTRIBUTE, id);
         } else {
             id = (String) o;
-            System.out.println("Existing cookie value " + id);
         }
         
         return id;
+    }
+    @Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
+            throws IOException, ServletException 
+    {
+        chain.doFilter(request, response);
+        
+        final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+        final HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+        final Cookie cookie = new Cookie(CSRFConstants.CSRF_COOKIE, getCookieValue(httpServletRequest));
+        cookie.setHttpOnly(false);
+        cookie.setMaxAge(-1);
+        
+        httpServletResponse.addCookie(cookie);
+        
+    }
+
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
+
+
+    @Override
+    public void destroy() {
     }
     
     
