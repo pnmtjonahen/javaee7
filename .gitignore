@@ -22,3 +22,4 @@
 /jaxrs/restfull-digest/target/
 /jaxb/refid/target/
 /cdi/spring/target/
+/jaxrs/csrf/target/
