@@ -32,47 +32,73 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Philippe Tjon - A - Hen, philippe@tjonahen.nl
  */
-@WebFilter(filterName = "GenerateCSRFCookieFilter", urlPatterns = {"/*"})
-public class GenerateCSRFCookieFilter implements Filter {
+@WebFilter(filterName = "CSRFProtectionFilter", urlPatterns = {"/*"})
+public class CSRFProtectionFilter implements Filter {
 
-
+    public static final String CSRF_COOKIE = "TJONAHEN-XSRF";
+    public static final String CSRF_SESSION_ATTRIBUTE = "TJONAHEN-XSRF-Value";
 
     private String getCookieValue(final HttpServletRequest hsr) {
         String id = "ID:" + System.currentTimeMillis();
-        Object o = hsr.getSession().getAttribute(CSRFConstants.CSRF_SESSION_ATTRIBUTE);
+        Object o = hsr.getSession().getAttribute(CSRF_SESSION_ATTRIBUTE);
         if (o == null) {
-            hsr.getSession().setAttribute(CSRFConstants.CSRF_SESSION_ATTRIBUTE, id);
+            hsr.getSession().setAttribute(CSRF_SESSION_ATTRIBUTE, id);
         } else {
             id = (String) o;
         }
-        
+
         return id;
     }
+
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
-            throws IOException, ServletException 
-    {
-        chain.doFilter(request, response);
-        
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
         final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         final HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        final Cookie cookie = new Cookie(CSRFConstants.CSRF_COOKIE, getCookieValue(httpServletRequest));
-        cookie.setHttpOnly(false);
-        cookie.setMaxAge(-1);
-        
-        httpServletResponse.addCookie(cookie);
-        
+        if (isAllowed(httpServletRequest)) {
+            chain.doFilter(request, response);
+
+            final Cookie cookie = new Cookie(CSRF_COOKIE, getCookieValue(httpServletRequest));
+            cookie.setHttpOnly(false);
+            cookie.setMaxAge(-1);
+
+            httpServletResponse.addCookie(cookie);
+        } else {
+            httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        }
     }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
-
     @Override
     public void destroy() {
     }
-    
-    
-    
+
+    private boolean isAllowed(HttpServletRequest request) {
+        if ("GET".equals(request.getMethod())) {
+            return true;
+        }
+        if ("HEAD".equals(request.getMethod())) {
+            return true;
+        }
+        if ("OPTIONS".equals(request.getMethod())) {
+            return true;
+        }
+
+        Object o = request.getSession().getAttribute(CSRF_SESSION_ATTRIBUTE);
+        if (o != null) {
+            String sessionIDValue = (String) o;
+            for (Cookie cookie : request.getCookies()) {
+                if (CSRF_COOKIE.equals(cookie.getName())) {
+                    if (sessionIDValue.equals(cookie.getValue())) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }
