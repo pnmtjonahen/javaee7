@@ -39,7 +39,7 @@ public class WSPortImplTest {
         parameters.setParam1("test1");
         parameters.setParam2("test2");
         final WSPortImpl instance = new WSPortImpl();
-        final String result = instance.triggerFilter(parameters);
+        final String result = instance.trigger(parameters);
         Assert.assertEquals("test1 test2", result);
     }
 }

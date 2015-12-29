@@ -12,5 +12,6 @@
   <name>JavaEE7 JAX-WS</name>
     <modules>
         <module>webservice</module>
-    </modules>
+    <module>ws-addressing</module>
+  </modules>
 </project>

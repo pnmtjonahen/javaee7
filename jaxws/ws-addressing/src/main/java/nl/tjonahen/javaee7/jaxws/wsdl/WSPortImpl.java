@@ -16,30 +16,25 @@
  */
 package nl.tjonahen.javaee7.jaxws.wsdl;
 
-import nl.tjonahen.javaee7.jaxws.ObjectFactory;
+import javax.jws.WebService;
 import nl.tjonahen.javaee7.jaxws.WsRequest;
-import org.junit.Assert;
-import org.junit.Test;
+
+
 
 /**
- * Directly call the ws implementing class, no infrastructure or javaEE features are used.
- * 
+ *
  * @author Philippe Tjon-A-Hen philippe@tjonahen.nl
  */
-public class WSPortImplTest {
-    
+@WebService(targetNamespace = "http://wsdl.jaxws.javaee7.tjonahen.nl",
+        wsdlLocation = "WEB-INF/wsdl/service.wsdl",
+        endpointInterface = "nl.tjonahen.javaee7.jaxws.wsdl.WSPort",
+        portName = "WSPort",
+        serviceName = "WSService")
+public class WSPortImpl implements WSPort {
 
-    /**
-     * Test of triggerFilter method, of class WSPortImpl.
-     */
-    @Test
-    public void testTriggerFilter() throws Exception {
-        final ObjectFactory of = new ObjectFactory();
-        final WsRequest parameters = of.createWsRequest();
-        parameters.setParam1("test1");
-        parameters.setParam2("test2");
-        final WSPortImpl instance = new WSPortImpl();
-        final String result = instance.triggerFilter(parameters);
-        Assert.assertEquals("test1 test2", result);
+    @Override
+    public String trigger(WsRequest parameters) throws WsFault {
+        return parameters.getParam1() + " " + parameters.getParam2();
     }
+    
 }

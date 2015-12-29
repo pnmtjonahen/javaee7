@@ -1,0 +1,66 @@
+<?xm version='1.0' encoding='UTF-8'?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+             xmlns:tns="http://wsdl.jaxws.javaee7.tjonahen.nl" 
+             xmlns:ns1="http://jaxws.javaee7.tjonahen.nl" 
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+             xmlns="http://schemas.xmlsoap.org/wsdl/" 
+             xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+             xmlns:wsa="http://www.w3.org/2005/08/addressing"   
+             xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+             xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+             xmlns:wsp="http://www.w3.org/ns/ws-policy"                                 
+             targetNamespace="http://wsdl.jaxws.javaee7.tjonahen.nl" 
+             name="WS">
+    <wsp:Policy>
+        <wsam:Addressing>
+            <wsp:Policy/>
+        </wsam:Addressing>
+    </wsp:Policy>    
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://jaxws.javaee7.tjonahen.nl" schemaLocation="service.xsd"/>
+        </xsd:schema>
+    </types>
+    
+    <message name="wsRequest">
+        <part name="parameters" element="ns1:wsRequest"/>
+    </message>
+    <message name="wsResponse">
+        <part name="parameters" element="ns1:wsResponse"/>
+    </message>
+    <message name="wsFault">
+        <part name="fault" element="ns1:wsFault"/>
+    </message>
+    
+    <portType name="WSPort">
+        <operation name="trigger">
+            <input  message="tns:wsRequest" />
+            <output message="tns:wsResponse" />
+            <fault message="tns:wsFault" name="fault" />
+        </operation>
+    </portType>
+
+    <binding name="WSPortBinding" type="tns:WSPort">
+        <wsaw:UsingAddressing/>
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="trigger">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+            <fault name="fault">
+                <soap:fault name="fault" use="literal"/>
+            </fault>
+        </operation>
+        
+    </binding>
+    
+    <service name="WSService">
+        <port name="WSPort" binding="tns:WSPortBinding">
+            <soap:address location="TBF"/>
+        </port>
+    </service>
+</definitions>

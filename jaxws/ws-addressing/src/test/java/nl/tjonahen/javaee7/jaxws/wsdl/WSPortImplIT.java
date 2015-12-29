@@ -21,6 +21,8 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.WebServiceException;
 import nl.tjonahen.javaee7.jaxws.ObjectFactory;
 import nl.tjonahen.javaee7.jaxws.WsRequest;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -42,18 +44,6 @@ public class WSPortImplIT {
         wsdlURL = new URL(address + "?wsdl");
     }
 
-    @Test(expected = WebServiceException.class)
-    public void triggerFilter_with_wrong_data() throws WsFault {
-
-        final WSService service = new WSService(wsdlURL, serviceName);
-        final ObjectFactory of = new ObjectFactory();
-        
-        final WsRequest parameters = of.createWsRequest();
-        
-        parameters.setParam1("junk");
-        parameters.setParam2("junk");
-        service.getWSPort().triggerFilter(parameters);
-    }
     
     @Test(expected = WebServiceException.class)
     public void triggerFilter_with_ok_data() throws WsFault {
@@ -65,6 +55,6 @@ public class WSPortImplIT {
         
         parameters.setParam1("junk@test.org");
         parameters.setParam2("Mister Junk");
-        service.getWSPort().triggerFilter(parameters);
+        assertEquals("junk@test.org Mister Junk", service.getWSPort().trigger(parameters));
     }
 }
