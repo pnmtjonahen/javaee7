@@ -19,7 +19,7 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.1.8.Final</version>
+                <version>1.1.11.Final</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -38,6 +38,11 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
             <scope>test</scope>
@@ -48,7 +53,7 @@
             <artifactId>slf4j-simple</artifactId>
             <version>1.6.4</version>
             <scope>test</scope>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -57,7 +62,7 @@
         </dependency>
     </dependencies>
     <profiles>
-        <profile>
+        <!--        <profile>
             <id>arquillian-weld-ee-embedded</id>
             <dependencies>
                 <dependency>
@@ -86,8 +91,8 @@
                     <scope>test</scope>
                 </dependency>
             </dependencies>
-        </profile>
-        <profile>
+        </profile>-->
+        <!--        <profile>
             <id>arquillian-glassfish-embedded</id>
             <dependencies>
                 <dependency>
@@ -103,12 +108,12 @@
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
-        </profile>
-        <profile>
+        </profile>-->
+        <!--        <profile>
             <id>arquillian-jbossas-managed</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
-            </activation>            
+            </activation>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.spec</groupId>
@@ -157,8 +162,70 @@
                         </executions>
                     </plugin>
                 </plugins>
-            </build> 
-        </profile>                
+            </build>
+        </profile>-->
+        <profile>
+            <id>arquillian-wildfly-managed</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <version>8.1.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <!-- You need the maven dependency plugin to download locally a zip with the server, unless you provide your own, it will download under the /target directory -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <version>2.8</version>
+                        <executions>
+                            <execution>
+                                <id>unpack</id>
+                                <phase>process-test-classes</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.wildfly</groupId>
+                                            <artifactId>wildfly-dist</artifactId>
+                                            <version>8.1.0.Final</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>target</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.17</version>
+                        <configuration>
+                            <!-- Fork every test because it will launch a separate AS instance -->
+                            <forkMode>always</forkMode>
+                            <systemPropertyVariables>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <!-- the maven dependency plugin will have already downloaded the server on /target -->
+                                <jboss.home>${project.basedir}/target/wildfly-8.1.0.Final</jboss.home>
+                                <module.path>${project.basedir}/target/wildfly-8.1.0.Final/modules</module.path>
+                            </systemPropertyVariables>
+                            <redirectTestOutputToFile>false</redirectTestOutputToFile>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
     <build>
         <plugins>
@@ -166,10 +233,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -24,3 +24,4 @@
 /cdi/spring/target/
 /jaxrs/csrf/target/
 /jaxws/ws-addressing/target/
+/jaxrs/csrf/nb-configuration.xml

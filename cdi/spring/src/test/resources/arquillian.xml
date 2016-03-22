@@ -5,7 +5,7 @@
         http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
     <container qualifier="jbossas-managed" default="true">
         <configuration>
-            <property name="jbossHome">target/jboss-as-7.1.1.Final</property>
+            <property name="jbossHome">target/wildfly-8.1.0.Final</property>
         </configuration>
     </container>
 </arquillian>

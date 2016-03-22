@@ -16,6 +16,7 @@
  */
 package nl.tjonahen.javaee7.cdi.springbridge;
 
+import java.io.File;
 import javax.inject.Inject;
 import nl.tjonahen.javaee7.cdi.cdibeans.CdiApplication;
 import nl.tjonahen.javaee7.cdi.cdibeans.CdiHelloWorld;
@@ -27,7 +28,7 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Ignore;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -37,23 +38,26 @@ import org.junit.runner.RunWith;
  */
 @RunWith(Arquillian.class)
 public class SpringBridgeTest {
-    
+
     @Deployment
     public static Archive<?> createTestArchive() {
-         return ShrinkWrap.create(WebArchive.class, "test-springbridge.war")
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
+                .importRuntimeDependencies().resolve().withTransitivity().asFile();
+
+        return ShrinkWrap.create(WebArchive.class, "test-springbridge.war")
                 .addPackage(CdiApplication.class.getPackage())
                 .addPackage(SpringApplication.class.getPackage())
                 .addPackage(SpringCdi.class.getPackage())
                 .addPackage(ApplicationContextManager.class.getPackage())
                 .addAsResource("root-context.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-                ;
- 
+                .addAsLibraries(files);
+
     }
-    
+
     @Inject
     private CdiHelloWorld helloWorld;
-    
+
     @Test
     public void test() {
         helloWorld.get();

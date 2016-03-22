@@ -17,16 +17,17 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <netbeans.hint.license>gpl30</netbeans.hint.license>        
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <netbeans.hint.license>gpl30</netbeans.hint.license>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
-        </dependency>        
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -73,7 +74,7 @@
                     <xnocompile>true</xnocompile>
                     <sei />
                 </configuration>
-            </plugin> 
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -85,7 +86,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>             
+            </plugin>
             <plugin>
                 <groupId>org.glassfish</groupId>
                 <artifactId>maven-embedded-glassfish-plugin</artifactId>
