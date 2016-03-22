@@ -6,7 +6,7 @@
     <version>1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JavaEE7</name>
-  
+
     <scm>
         <connection>scm:git:git@github.com:pnmtjonahen/javaee7.git</connection>
         <url>scm:git:git@github.com:pnmtjonahen/javaee7.git</url>
@@ -26,8 +26,28 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.4.1</version>
             </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.5.201505241946</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-    </build>          
+    </build>
     <modules>
         <module>jaxrs</module>
         <module>jaxws</module>
